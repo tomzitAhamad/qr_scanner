@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qr_code_scanner/features/scanner/presentation/pages/scanner_page.dart';
+
+import '../features/scanner/presentation/pages/scanner_page.dart';
 
 class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
