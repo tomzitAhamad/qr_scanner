@@ -5,6 +5,11 @@ class AppTextStyle {
   static const TextStyle heading1 = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.bold,
-    color: AppColors.black,
+    color: AppColors.white,
+  );
+
+  static const TextStyle bodyText = TextStyle(
+    fontSize: 16,
+    color: AppColors.white,
   );
 }

@@ -9,6 +9,15 @@ class QrScannerApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Qr Scanner",
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.black,
+        primaryColor: Color(0xFF2563EB),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+      ),
       initialRoute: "/",
       onGenerateRoute: AppRoutes.generateRoute,
     );
