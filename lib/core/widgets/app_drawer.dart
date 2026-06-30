@@ -26,10 +26,7 @@ class AppDrawer extends StatelessWidget {
               title: "Scan",
               onTap: () {
                 context.read<NavigationProvider>().closeDrawer();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ScannerPage()),
-                );
+                Navigator.pushNamed(context, "/");
               },
             ),
 
@@ -47,10 +44,7 @@ class AppDrawer extends StatelessWidget {
               title: "Favorites",
               onTap: () {
                 context.read<NavigationProvider>().closeDrawer();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const FavoritePage()),
-                );
+                Navigator.pushNamed(context, "/favorite");
               },
             ),
 
@@ -59,10 +53,7 @@ class AppDrawer extends StatelessWidget {
               title: "History",
               onTap: () {
                 context.read<NavigationProvider>().closeDrawer();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const HistoryPage()),
-                );
+                Navigator.pushNamed(context, "/history");
               },
             ),
 
@@ -71,10 +62,7 @@ class AppDrawer extends StatelessWidget {
               title: "My QR",
               onTap: () {
                 context.read<NavigationProvider>().closeDrawer();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MyQrPage()),
-                );
+                Navigator.pushNamed(context, "/my_qr");
               },
             ),
 
@@ -83,10 +71,7 @@ class AppDrawer extends StatelessWidget {
               title: "Create QR",
               onTap: () {
                 context.read<NavigationProvider>().closeDrawer();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const CreateQrPage()),
-                );
+                Navigator.pushNamed(context, "/create_qr");
               },
             ),
 
@@ -95,10 +80,7 @@ class AppDrawer extends StatelessWidget {
               title: "Settings",
               onTap: () {
                 context.read<NavigationProvider>().closeDrawer();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const SettingsPage()),
-                );
+                Navigator.pushNamed(context, "/settings");
               },
             ),
 
