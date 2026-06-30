@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_code_scanner/core/widgets/drawer_item.dart';
 
-import 'package:qr_code_scanner/core/providers/navigation_provider.dart';
-import 'package:qr_code_scanner/features/create_qr/presentation/pages/create_qr_page.dart';
-import 'package:qr_code_scanner/features/favorites/presentation/pages/favorite_page.dart';
-import 'package:qr_code_scanner/features/history/presentation/pages/history_page.dart';
-import 'package:qr_code_scanner/features/my_qr/presentation/pages/my_qr_page.dart';
-import 'package:qr_code_scanner/features/scanner/presentation/pages/scanner_page.dart';
-import 'package:qr_code_scanner/features/settings/presentation/pages/settings_page.dart';
-import 'drawer_item.dart';
+import '../providers/navigation_provider.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});

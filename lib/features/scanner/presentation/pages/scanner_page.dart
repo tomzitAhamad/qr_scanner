@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_code_scanner/features/scanner/presentation/widgets/qr_camera_view.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/providers/navigation_provider.dart';
@@ -18,9 +19,10 @@ class ScannerPage extends StatelessWidget {
           backgroundColor: AppColors.black,
           body: Stack(
             children: [
-              const ScannerOutline(),
+              QrCameraView(),
+              ScannerOutline(),
 
-              const SafeArea(child: ScannerAppBar()),
+              SafeArea(child: ScannerAppBar()),
 
               if (provider.isDrawerOpen)
                 Row(

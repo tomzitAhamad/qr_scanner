@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/app/app_routes.dart';
 
+
 class QrScannerApp extends StatelessWidget {
   const QrScannerApp({super.key});
 
