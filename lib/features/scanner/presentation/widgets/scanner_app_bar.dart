@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/core/providers/navigation_provider.dart';
+import 'package:qr_code_scanner/core/providers/scanner_provider.dart';
 
 class ScannerAppBar extends StatelessWidget {
   const ScannerAppBar({super.key, this.title});
@@ -38,9 +39,25 @@ class ScannerAppBar extends StatelessWidget {
             ),
           Row(
             children: [
-              _circleIcon(icon: Icons.image_outlined, onTap: () {}),
+              _circleIcon(
+                icon: Icons.image_outlined,
+                onTap: () {
+                  context.read<ScannerProvider>().scanImage(context);
+                },
+              ),
               const SizedBox(width: 12),
-              _circleIcon(icon: Icons.flash_on_outlined, onTap: () {}),
+              Consumer<ScannerProvider>(
+                builder: (context, scannerProvider, child) {
+                  return _circleIcon(
+                    icon: scannerProvider.isFlashOn
+                        ? Icons.flash_on
+                        : Icons.flash_off,
+                    onTap: () {
+                      scannerProvider.toggleFlash();
+                    },
+                  );
+                },
+              ),
             ],
           ),
         ],

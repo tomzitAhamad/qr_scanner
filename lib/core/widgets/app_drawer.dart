@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_code_scanner/core/providers/scanner_provider.dart';
 import 'package:qr_code_scanner/core/widgets/drawer_item.dart';
+import 'package:qr_code_scanner/features/scanner/services/image_scan_service.dart';
 
 import '../providers/navigation_provider.dart';
 
@@ -29,7 +31,7 @@ class AppDrawer extends StatelessWidget {
               title: "Scan Image",
               onTap: () {
                 context.read<NavigationProvider>().closeDrawer();
-                // TODO: Navigate to Scan Image page
+                context.read<ScannerProvider>().scanImage(context);
               },
             ),
 
