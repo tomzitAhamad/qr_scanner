@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/core/providers/scanner_provider.dart';
+import 'package:qr_code_scanner/features/scanner/services/qr_launcher_service.dart';
 
 class QrCameraView extends StatefulWidget {
   const QrCameraView({super.key});
@@ -31,7 +32,7 @@ class _QrCameraViewState extends State<QrCameraView> {
 
     return MobileScanner(
       controller: _controller,
-      onDetect: (capture) {
+      onDetect: (capture) async {
         if (scannerProvider.isScanned) return;
 
         if (capture.barcodes.isEmpty) return;
@@ -43,7 +44,9 @@ class _QrCameraViewState extends State<QrCameraView> {
 
         scannerProvider.scanned();
 
-        debugPrint("QR Result : $result");
+        await QrLauncherService.launchQr(context: context, qrData: result);
+
+        scannerProvider.reset();
       },
     );
   }

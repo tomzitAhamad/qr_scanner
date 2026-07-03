@@ -10,7 +10,7 @@ class ScannerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void resetScanned() {
+  void reset() {
     _isScanned = false;
     notifyListeners();
   }
