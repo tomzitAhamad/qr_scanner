@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ScannerProvider extends ChangeNotifier {
-  bool _isScanning = true;
+  bool _isScanned = false;
 
-  bool get isScanning => _isScanning;
+  bool get isScanned => _isScanned;
 
-  void stopScanning() {
-    _isScanning = false;
+  void scanned() {
+    _isScanned = true;
     notifyListeners();
   }
 
-  void startScanning() {
-    _isScanning = true;
+  void resetScanned() {
+    _isScanned = false;
     notifyListeners();
   }
 }
