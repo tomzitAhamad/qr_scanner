@@ -1,15 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_code_scanner/core/providers/history_provider.dart';
 import 'package:qr_code_scanner/features/scanner/services/qr_launcher_service.dart';
 
 class ScannerProvider extends ChangeNotifier {
-  final MobileScannerController controller = MobileScannerController();
+  final MobileScannerController controller = MobileScannerController(
+    detectionSpeed: DetectionSpeed.normal,
+  );
 
   bool _isScanned = false;
   bool _isFlashOn = false;
   bool get isScanned => _isScanned;
   bool get isFlashOn => _isFlashOn;
+
+  String? _lastScannedData;
+  DateTime? _lastScannedTime;
+
+  bool checkDuplicateAndSet(String data) {
+    final now = DateTime.now();
+    if (_lastScannedData == data &&
+        _lastScannedTime != null &&
+        now.difference(_lastScannedTime!) < const Duration(seconds: 3)) {
+      return true;
+    }
+    _lastScannedData = data;
+    _lastScannedTime = now;
+    return false;
+  }
+
   void scanned() {
     _isScanned = true;
     notifyListeners();
@@ -58,6 +78,13 @@ class ScannerProvider extends ChangeNotifier {
         context,
       ).showSnackBar(const SnackBar(content: Text("Invalid QR Code")));
       return;
+    }
+
+    if (context.mounted) {
+      context.read<HistoryProvider>().addHistoryItem(
+        data: result,
+        type: "Image",
+      );
     }
 
     await QrLauncherService.launchQr(context: context, qrData: result);

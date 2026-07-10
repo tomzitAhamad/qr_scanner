@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/core/providers/scanner_provider.dart';
+import 'package:qr_code_scanner/core/providers/history_provider.dart';
 import 'package:qr_code_scanner/features/scanner/services/qr_launcher_service.dart';
 
 class QrCameraView extends StatelessWidget {
@@ -23,9 +24,16 @@ class QrCameraView extends StatelessWidget {
 
         if (result == null || result.isEmpty) return;
 
-        scannerProvider.scanned();
+        if (scannerProvider.checkDuplicateAndSet(result)) return;
 
-        await QrLauncherService.launchQr(context: context, qrData: result);
+        scannerProvider.scanned();
+        if (context.mounted) {
+          context.read<HistoryProvider>().addHistoryItem(
+            data: result,
+            type: "Camera",
+          );
+        }
+        QrLauncherService.launchQr(context: context, qrData: result);
 
         scannerProvider.reset();
       },

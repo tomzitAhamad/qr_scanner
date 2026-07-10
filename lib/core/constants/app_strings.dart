@@ -8,4 +8,9 @@ class AppStrings {
   static const String shareString = "Share";
   static const String ourAppsString = "Our Apps";
   static const String removeAdsString = "Remove Ads";
+  static const String clearHistoryTitle = "Clear History";
+  static const String clearHistoryMessage =
+      "Are you sure you want to clear all history?";
+  static const String clearHistoryCancel = "Cancel";
+  static const String clearHistoryConfirm = "Clear";
 }
