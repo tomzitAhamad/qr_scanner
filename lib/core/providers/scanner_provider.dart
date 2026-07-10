@@ -54,8 +54,11 @@ class ScannerProvider extends ChangeNotifier {
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image == null) return;
+    if (!context.mounted) return;
 
     final BarcodeCapture? capture = await controller.analyzeImage(image.path);
+
+    if (!context.mounted) return;
 
     if (capture == null) {
       ScaffoldMessenger.of(
@@ -80,12 +83,10 @@ class ScannerProvider extends ChangeNotifier {
       return;
     }
 
-    if (context.mounted) {
-      context.read<HistoryProvider>().addHistoryItem(
-        data: result,
-        type: "Image",
-      );
-    }
+    context.read<HistoryProvider>().addHistoryItem(
+      data: result,
+      type: "Image",
+    );
 
     await QrLauncherService.launchQr(context: context, qrData: result);
   }

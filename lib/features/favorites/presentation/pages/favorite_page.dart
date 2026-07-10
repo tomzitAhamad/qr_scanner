@@ -37,7 +37,7 @@ class FavoritePage extends StatelessWidget {
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
             child: const Text(
-              "Cancel",
+              AppStrings.cancelText,
               style: TextStyle(color: Colors.white54),
             ),
           ),
@@ -52,7 +52,7 @@ class FavoritePage extends StatelessWidget {
               context.read<FavoriteProvider>().clearFavorites();
               Navigator.of(ctx).pop();
             },
-            child: const Text("Clear", style: TextStyle(color: Colors.white)),
+            child: const Text(AppStrings.clearText, style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -74,7 +74,7 @@ class FavoritePage extends StatelessWidget {
                   Icons.delete_sweep_outlined,
                   color: Colors.redAccent,
                 ),
-                tooltip: "Clear All Favorites",
+                tooltip: AppStrings.clearAllFavoritesTooltip,
                 onPressed: () => _showClearFavoritesConfirmation(context),
               );
             },

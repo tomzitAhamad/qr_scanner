@@ -13,7 +13,7 @@ class SettingsPage extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: const AppDrawer(),
-      body: const Center(child: Text("Settings Page")),
+      body: const Center(child: Text(AppStrings.settingsPageTitle)),
     );
   }
 }

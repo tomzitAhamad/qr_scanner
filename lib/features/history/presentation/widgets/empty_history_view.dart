@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_code_scanner/core/constants/app_strings.dart';
 
 class EmptyHistoryView extends StatelessWidget {
   const EmptyHistoryView({super.key});
@@ -16,7 +17,7 @@ class EmptyHistoryView extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            "No History Yet",
+            AppStrings.noHistoryYet,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -25,7 +26,7 @@ class EmptyHistoryView extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            "Scanned QR codes will appear here",
+            AppStrings.scannedQrCodesWillAppear,
             style: TextStyle(
               fontSize: 14,
               color: Colors.white.withOpacity(0.4),

@@ -13,7 +13,7 @@ class CreateQrPage extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: const AppDrawer(),
-      body: const Center(child: Text("Create QR Page")),
+      body: const Center(child: Text(AppStrings.createQrPageTitle)),
     );
   }
 }

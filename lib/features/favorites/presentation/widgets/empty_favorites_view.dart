@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_code_scanner/core/constants/app_strings.dart';
 
 class EmptyFavoritesView extends StatelessWidget {
   const EmptyFavoritesView({super.key});
@@ -16,7 +17,7 @@ class EmptyFavoritesView extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            "No Favorites Yet",
+            AppStrings.noFavoritesYet,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -25,7 +26,7 @@ class EmptyFavoritesView extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            "Tap the heart icon in history to add items here",
+            AppStrings.tapHeartIconToFavorite,
             style: TextStyle(
               fontSize: 14,
               color: Colors.white.withOpacity(0.4),

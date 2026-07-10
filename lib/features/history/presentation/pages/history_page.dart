@@ -37,7 +37,7 @@ class HistoryPage extends StatelessWidget {
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
             child: const Text(
-              "Cancel",
+              AppStrings.cancelText,
               style: TextStyle(color: Colors.white54),
             ),
           ),

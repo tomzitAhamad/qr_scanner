@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_code_scanner/core/constants/app_strings.dart';
 import 'package:qr_code_scanner/core/providers/scanner_provider.dart';
 import 'package:qr_code_scanner/core/widgets/drawer_item.dart';
 
@@ -16,7 +17,7 @@ class AppDrawer extends StatelessWidget {
           children: [
             DrawerItem(
               icon: Icons.qr_code_scanner,
-              title: "Scan",
+              title: AppStrings.scanString,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushReplacementNamed(context, "/");
@@ -25,16 +26,17 @@ class AppDrawer extends StatelessWidget {
 
             DrawerItem(
               icon: Icons.image_outlined,
-              title: "Scan Image",
+              title: AppStrings.scanImageString,
               onTap: () {
+                final scaffoldContext = Scaffold.of(context).context;
                 Navigator.pop(context);
-                context.read<ScannerProvider>().scanImage(context);
+                scaffoldContext.read<ScannerProvider>().scanImage(scaffoldContext);
               },
             ),
 
             DrawerItem(
               icon: Icons.favorite_border,
-              title: "Favorites",
+              title: AppStrings.favoriteString,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushReplacementNamed(context, "/favorite");
@@ -43,7 +45,7 @@ class AppDrawer extends StatelessWidget {
 
             DrawerItem(
               icon: Icons.history,
-              title: "History",
+              title: AppStrings.historyString,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushReplacementNamed(context, "/history");
@@ -52,7 +54,7 @@ class AppDrawer extends StatelessWidget {
 
             DrawerItem(
               icon: Icons.badge_outlined,
-              title: "My QR",
+              title: AppStrings.myQrString,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushReplacementNamed(context, "/my_qr");
@@ -61,7 +63,7 @@ class AppDrawer extends StatelessWidget {
 
             DrawerItem(
               icon: Icons.edit_outlined,
-              title: "Create QR",
+              title: AppStrings.createQrString,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushReplacementNamed(context, "/create_qr");
@@ -70,7 +72,7 @@ class AppDrawer extends StatelessWidget {
 
             DrawerItem(
               icon: Icons.settings_outlined,
-              title: "Settings",
+              title: AppStrings.settingsString,
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushReplacementNamed(context, "/settings");
@@ -79,7 +81,7 @@ class AppDrawer extends StatelessWidget {
 
             DrawerItem(
               icon: Icons.share_outlined,
-              title: "Share",
+              title: AppStrings.shareString,
               onTap: () {
                 Navigator.pop(context);
                 // TODO: Share App
@@ -88,7 +90,7 @@ class AppDrawer extends StatelessWidget {
 
             DrawerItem(
               icon: Icons.apps_outlined,
-              title: "Our Apps",
+              title: AppStrings.ourAppsString,
               onTap: () {
                 Navigator.pop(context);
                 // TODO: Open Play Store
@@ -97,7 +99,7 @@ class AppDrawer extends StatelessWidget {
 
             DrawerItem(
               icon: Icons.block_outlined,
-              title: "Remove Ads",
+              title: AppStrings.removeAdsString,
               onTap: () {
                 Navigator.pop(context);
                 // TODO: Remove Ads

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:qr_code_scanner/core/constants/app_colors.dart';
 
 class ScannerOutline extends StatelessWidget {
   const ScannerOutline({super.key});

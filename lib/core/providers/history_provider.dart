@@ -22,8 +22,6 @@ class HistoryProvider extends ChangeNotifier {
   }
 
   void removeHistoryItem(int index) {
-    // Note: since the getter returns the reversed list for UI (showing newest first),
-    // we need to translate the index back to the original list or just remove by reference.
     final reversedList = _items.reversed.toList();
     if (index >= 0 && index < reversedList.length) {
       final itemToRemove = reversedList[index];
