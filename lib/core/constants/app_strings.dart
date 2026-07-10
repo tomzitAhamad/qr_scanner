@@ -11,6 +11,9 @@ class AppStrings {
   static const String clearHistoryTitle = "Clear History";
   static const String clearHistoryMessage =
       "Are you sure you want to clear all history?";
-  static const String clearHistoryCancel = "Cancel";
-  static const String clearHistoryConfirm = "Clear";
+  static const String cancelText = "Cancel";
+  static const String clearText = "Clear";
+  static const String clearFevoriteTitle = "Clear Favorites";
+  static const String clearFevoriteMessage =
+      "Are you sure you want to clear all favorite items? This action cannot be undone.";
 }

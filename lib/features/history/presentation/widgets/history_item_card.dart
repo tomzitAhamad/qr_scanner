@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import '../../../../core/models/history_item.dart';
+import '../../../../core/providers/favorite_provider.dart';
 import '../../../scanner/services/qr_launcher_service.dart';
 
 class HistoryItemCard extends StatelessWidget {
@@ -25,6 +27,8 @@ class HistoryItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isCamera = item.scanType.toLowerCase() == 'camera';
+    final favoriteProvider = context.watch<FavoriteProvider>();
+    final isFav = favoriteProvider.isFavorite(item.data);
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -128,6 +132,18 @@ class HistoryItemCard extends StatelessWidget {
                   ),
                   Row(
                     children: [
+                      IconButton(
+                        icon: Icon(
+                          isFav ? Icons.favorite : Icons.favorite_border,
+                          color: isFav ? Colors.redAccent : Colors.white.withOpacity(0.6),
+                          size: 18,
+                        ),
+                        onPressed: () {
+                          favoriteProvider.toggleFavorite(item);
+                        },
+                        constraints: const BoxConstraints(),
+                        padding: const EdgeInsets.all(8),
+                      ),
                       IconButton(
                         icon: Icon(
                           Icons.open_in_new,

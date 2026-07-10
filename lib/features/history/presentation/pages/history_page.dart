@@ -53,7 +53,7 @@ class HistoryPage extends StatelessWidget {
               Navigator.of(ctx).pop();
             },
             child: const Text(
-              AppStrings.clearHistoryConfirm,
+              AppStrings.clearText,
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -77,7 +77,7 @@ class HistoryPage extends StatelessWidget {
                   Icons.delete_sweep_outlined,
                   color: Colors.redAccent,
                 ),
-                tooltip: AppStrings.clearHistoryCancel,
+                tooltip: AppStrings.clearText,
                 onPressed: () => _showClearConfirmation(context),
               );
             },
