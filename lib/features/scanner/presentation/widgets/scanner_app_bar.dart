@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_code_scanner/core/providers/navigation_provider.dart';
 import 'package:qr_code_scanner/core/providers/scanner_provider.dart';
 
 class ScannerAppBar extends StatelessWidget {
@@ -18,7 +17,7 @@ class ScannerAppBar extends StatelessWidget {
           _circleIcon(
             icon: Icons.menu,
             onTap: () {
-              context.read<NavigationProvider>().openDrawer();
+              Scaffold.of(context).openDrawer();
             },
           ),
           if (title != null)

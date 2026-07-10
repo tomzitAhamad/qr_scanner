@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/core/providers/scanner_provider.dart';
 import 'package:qr_code_scanner/core/widgets/drawer_item.dart';
-import 'package:qr_code_scanner/features/scanner/services/image_scan_service.dart';
-
-import '../providers/navigation_provider.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -21,8 +18,8 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.qr_code_scanner,
               title: "Scan",
               onTap: () {
-                context.read<NavigationProvider>().closeDrawer();
-                Navigator.pushNamed(context, "/");
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, "/");
               },
             ),
 
@@ -30,7 +27,7 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.image_outlined,
               title: "Scan Image",
               onTap: () {
-                context.read<NavigationProvider>().closeDrawer();
+                Navigator.pop(context);
                 context.read<ScannerProvider>().scanImage(context);
               },
             ),
@@ -39,8 +36,8 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.favorite_border,
               title: "Favorites",
               onTap: () {
-                context.read<NavigationProvider>().closeDrawer();
-                Navigator.pushNamed(context, "/favorite");
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, "/favorite");
               },
             ),
 
@@ -48,8 +45,8 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.history,
               title: "History",
               onTap: () {
-                context.read<NavigationProvider>().closeDrawer();
-                Navigator.pushNamed(context, "/history");
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, "/history");
               },
             ),
 
@@ -57,8 +54,8 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.badge_outlined,
               title: "My QR",
               onTap: () {
-                context.read<NavigationProvider>().closeDrawer();
-                Navigator.pushNamed(context, "/my_qr");
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, "/my_qr");
               },
             ),
 
@@ -66,8 +63,8 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.edit_outlined,
               title: "Create QR",
               onTap: () {
-                context.read<NavigationProvider>().closeDrawer();
-                Navigator.pushNamed(context, "/create_qr");
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, "/create_qr");
               },
             ),
 
@@ -75,8 +72,8 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.settings_outlined,
               title: "Settings",
               onTap: () {
-                context.read<NavigationProvider>().closeDrawer();
-                Navigator.pushNamed(context, "/settings");
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, "/settings");
               },
             ),
 
@@ -84,7 +81,7 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.share_outlined,
               title: "Share",
               onTap: () {
-                context.read<NavigationProvider>().closeDrawer();
+                Navigator.pop(context);
                 // TODO: Share App
               },
             ),
@@ -93,7 +90,7 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.apps_outlined,
               title: "Our Apps",
               onTap: () {
-                context.read<NavigationProvider>().closeDrawer();
+                Navigator.pop(context);
                 // TODO: Open Play Store
               },
             ),
@@ -102,7 +99,7 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.block_outlined,
               title: "Remove Ads",
               onTap: () {
-                context.read<NavigationProvider>().closeDrawer();
+                Navigator.pop(context);
                 // TODO: Remove Ads
               },
             ),
@@ -112,3 +109,4 @@ class AppDrawer extends StatelessWidget {
     );
   }
 }
+
