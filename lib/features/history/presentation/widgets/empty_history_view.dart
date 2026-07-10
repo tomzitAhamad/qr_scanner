@@ -18,19 +18,16 @@ class EmptyHistoryView extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             AppStrings.noHistoryYet,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.white.withOpacity(0.6),
-            ),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  color: Colors.white.withOpacity(0.6),
+                ),
           ),
           const SizedBox(height: 8),
           Text(
             AppStrings.scannedQrCodesWillAppear,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.white.withOpacity(0.4),
-            ),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: Colors.white.withOpacity(0.4),
+                ),
           ),
         ],
       ),

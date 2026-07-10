@@ -13,26 +13,14 @@ class FavoritePage extends StatelessWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF1E1E1E),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Row(
           children: [
             Icon(Icons.delete_sweep, color: Colors.redAccent, size: 24),
             SizedBox(width: 10),
-            Text(
-              AppStrings.clearFevoriteTitle,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text(AppStrings.clearFevoriteTitle),
           ],
         ),
-        content: const Text(
-          AppStrings.clearFevoriteMessage,
-          style: TextStyle(color: Colors.white70, fontSize: 14),
-        ),
+        content: const Text(AppStrings.clearFevoriteMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),

@@ -32,11 +32,6 @@ class HistoryItemCard extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: const Color(0xFF1E1E1E),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: Colors.white.withOpacity(0.05), width: 1),
-      ),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {

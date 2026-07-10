@@ -13,26 +13,14 @@ class HistoryPage extends StatelessWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF1E1E1E),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Row(
           children: [
             Icon(Icons.delete_sweep, color: Colors.redAccent, size: 24),
             SizedBox(width: 10),
-            Text(
-              AppStrings.clearHistoryTitle,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text(AppStrings.clearHistoryTitle),
           ],
         ),
-        content: const Text(
-          AppStrings.clearHistoryMessage,
-          style: TextStyle(color: Colors.white70, fontSize: 14),
-        ),
+        content: const Text(AppStrings.clearHistoryMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),

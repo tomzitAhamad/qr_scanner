@@ -58,11 +58,6 @@ class MyQrDisplayView extends StatelessWidget {
           const SizedBox(height: 24),
 
           Card(
-            color: const Color(0xFF1E1E1E),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-              side: BorderSide(color: Colors.white.withOpacity(0.05)),
-            ),
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
