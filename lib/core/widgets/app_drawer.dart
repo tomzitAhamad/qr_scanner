@@ -22,7 +22,9 @@ class AppDrawer extends StatelessWidget {
               title: AppStrings.scanString,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushReplacementNamed(context, "/");
+                if (ModalRoute.of(context)?.settings.name != "/") {
+                  Navigator.pushReplacementNamed(context, "/");
+                }
               },
             ),
 
@@ -41,7 +43,9 @@ class AppDrawer extends StatelessWidget {
               title: AppStrings.favoriteString,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushReplacementNamed(context, "/favorite");
+                if (ModalRoute.of(context)?.settings.name != "/favorite") {
+                  Navigator.pushReplacementNamed(context, "/favorite");
+                }
               },
             ),
 
@@ -50,7 +54,9 @@ class AppDrawer extends StatelessWidget {
               title: AppStrings.historyString,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushReplacementNamed(context, "/history");
+                if (ModalRoute.of(context)?.settings.name != "/history") {
+                  Navigator.pushReplacementNamed(context, "/history");
+                }
               },
             ),
 
@@ -59,7 +65,9 @@ class AppDrawer extends StatelessWidget {
               title: AppStrings.myQrString,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushReplacementNamed(context, "/my_qr");
+                if (ModalRoute.of(context)?.settings.name != "/my_qr") {
+                  Navigator.pushReplacementNamed(context, "/my_qr");
+                }
               },
             ),
 
@@ -68,7 +76,9 @@ class AppDrawer extends StatelessWidget {
               title: AppStrings.createQrString,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushReplacementNamed(context, "/create_qr");
+                if (ModalRoute.of(context)?.settings.name != "/create_qr") {
+                  Navigator.pushReplacementNamed(context, "/create_qr");
+                }
               },
             ),
 
@@ -77,7 +87,9 @@ class AppDrawer extends StatelessWidget {
               title: AppStrings.settingsString,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushReplacementNamed(context, "/settings");
+                if (ModalRoute.of(context)?.settings.name != "/settings") {
+                  Navigator.pushReplacementNamed(context, "/settings");
+                }
               },
             ),
 

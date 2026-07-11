@@ -6,9 +6,8 @@ import 'package:qr_code_scanner/core/providers/history_provider.dart';
 import 'package:qr_code_scanner/features/scanner/services/qr_launcher_service.dart';
 
 class ScannerProvider extends ChangeNotifier {
-  final MobileScannerController controller = MobileScannerController(
-    detectionSpeed: DetectionSpeed.normal,
-  );
+  MobileScannerController? _controller;
+  MobileScannerController? get controller => _controller;
 
   bool _isScanned = false;
   bool _isFlashOn = false;
@@ -17,6 +16,19 @@ class ScannerProvider extends ChangeNotifier {
 
   String? _lastScannedData;
   DateTime? _lastScannedTime;
+
+  void setController(MobileScannerController newController) {
+    _controller = newController;
+    _isFlashOn = false; // New controller session starts with flash off
+    notifyListeners();
+  }
+
+  void clearController(MobileScannerController controllerToClear) {
+    if (_controller == controllerToClear) {
+      _controller = null;
+      notifyListeners();
+    }
+  }
 
   bool checkDuplicateAndSet(String data) {
     final now = DateTime.now();
@@ -41,11 +53,11 @@ class ScannerProvider extends ChangeNotifier {
   }
 
   Future<void> toggleFlash() async {
-    await controller.toggleTorch();
-
-    _isFlashOn = !_isFlashOn;
-
-    notifyListeners();
+    if (_controller != null) {
+      await _controller!.toggleTorch();
+      _isFlashOn = !_isFlashOn;
+      notifyListeners();
+    }
   }
 
   Future<void> scanImage(BuildContext context) async {
@@ -56,7 +68,14 @@ class ScannerProvider extends ChangeNotifier {
     if (image == null) return;
     if (!context.mounted) return;
 
-    final BarcodeCapture? capture = await controller.analyzeImage(image.path);
+    final activeController = _controller;
+    final tempController = activeController ?? MobileScannerController();
+
+    final BarcodeCapture? capture = await tempController.analyzeImage(image.path);
+
+    if (activeController == null) {
+      tempController.dispose();
+    }
 
     if (!context.mounted) return;
 
@@ -89,11 +108,5 @@ class ScannerProvider extends ChangeNotifier {
     );
 
     await QrLauncherService.launchQr(context: context, qrData: result);
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
   }
 }
