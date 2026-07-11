@@ -8,6 +8,7 @@ class CreateQrPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final List<Map<String, dynamic>> options = [
       {
         "icon": Icons.assignment_outlined,
@@ -77,7 +78,7 @@ class CreateQrPage extends StatelessWidget {
               child: Text(
                 "Create QR",
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.5),
+                  color: theme.textTheme.bodyMedium?.color?.withValues(alpha: 0.5),
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
@@ -89,7 +90,6 @@ class CreateQrPage extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: options.length,
                 separatorBuilder: (context, index) => const Divider(
-                  color: Colors.white10,
                   height: 1,
                   indent: 52,
                 ),
@@ -98,13 +98,12 @@ class CreateQrPage extends StatelessWidget {
                   return ListTile(
                     leading: Icon(
                       option['icon'] as IconData,
-                      color: Colors.white,
+                      color: theme.colorScheme.primary,
                       size: 24,
                     ),
                     title: Text(
                       option['title'] as String,
                       style: const TextStyle(
-                        color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),

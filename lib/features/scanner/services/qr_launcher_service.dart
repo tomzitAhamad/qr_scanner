@@ -44,10 +44,7 @@ class QrLauncherService {
     }
 
     if (uri != null) {
-      final bool launched = await launchUrl(
-        uri,
-        mode: LaunchMode.externalApplication,
-      );
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
       _showPlainTextDialog(context, qrData);
     }
@@ -57,8 +54,6 @@ class QrLauncherService {
     String ssid = "";
     String password = "";
     String security = "";
-
-    // Regex parsing
     final ssidReg = RegExp(r'S:([^;]+);');
     final passReg = RegExp(r'P:([^;]+);');
     final secReg = RegExp(r'T:([^;]+);');
@@ -123,24 +118,36 @@ class QrLauncherService {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (contact.displayName != null && contact.displayName!.isNotEmpty) ...[
-                    Text("${AppStrings.nameColon}${contact.displayName}", style: const TextStyle(fontWeight: FontWeight.bold)),
+                  if (contact.displayName != null &&
+                      contact.displayName!.isNotEmpty) ...[
+                    Text(
+                      "${AppStrings.nameColon}${contact.displayName}",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(height: 8),
                   ],
                   if (contact.phones.isNotEmpty) ...[
-                    Text("${AppStrings.phoneColon}${contact.phones.first.number}"),
+                    Text(
+                      "${AppStrings.phoneColon}${contact.phones.first.number}",
+                    ),
                     const SizedBox(height: 8),
                   ],
                   if (contact.emails.isNotEmpty) ...[
-                    Text("${AppStrings.emailColon}${contact.emails.first.address}"),
+                    Text(
+                      "${AppStrings.emailColon}${contact.emails.first.address}",
+                    ),
                     const SizedBox(height: 8),
                   ],
                   if (contact.addresses.isNotEmpty) ...[
-                    Text("${AppStrings.addressColon}${contact.addresses.first.formatted ?? ""}"),
+                    Text(
+                      "${AppStrings.addressColon}${contact.addresses.first.formatted ?? ""}",
+                    ),
                     const SizedBox(height: 8),
                   ],
                   if (contact.organizations.isNotEmpty) ...[
-                    Text("${AppStrings.companyColon}${contact.organizations.first.name ?? ""}"),
+                    Text(
+                      "${AppStrings.companyColon}${contact.organizations.first.name ?? ""}",
+                    ),
                     const SizedBox(height: 8),
                   ],
                   if (contact.notes.isNotEmpty) ...[
@@ -156,7 +163,9 @@ class QrLauncherService {
                   Navigator.pop(dialogContext);
                   context.read<MyQrProvider>().importFromContact(contact);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text(AppStrings.importedSuccessMessage)),
+                    const SnackBar(
+                      content: Text(AppStrings.importedSuccessMessage),
+                    ),
                   );
                   Navigator.pushReplacementNamed(context, "/my_qr");
                 },
@@ -168,18 +177,26 @@ class QrLauncherService {
                   final status = await Permission.contacts.request();
                   if (status.isGranted) {
                     try {
-                      await FlutterContacts.native.showCreator(contact: contact);
+                      await FlutterContacts.native.showCreator(
+                        contact: contact,
+                      );
                     } catch (e) {
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("${AppStrings.couldNotOpenContactCreatorError}: $e")),
+                          SnackBar(
+                            content: Text(
+                              "${AppStrings.couldNotOpenContactCreatorError}: $e",
+                            ),
+                          ),
                         );
                       }
                     }
                   } else {
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text(AppStrings.contactPermissionRequired)),
+                        const SnackBar(
+                          content: Text(AppStrings.contactPermissionRequired),
+                        ),
                       );
                     }
                   }
@@ -205,9 +222,7 @@ class QrLauncherService {
       builder: (dialogContext) {
         return AlertDialog(
           title: const Text(AppStrings.scannedResult),
-          content: SingleChildScrollView(
-            child: Text(text),
-          ),
+          content: SingleChildScrollView(child: Text(text)),
           actions: [
             TextButton(
               onPressed: () {

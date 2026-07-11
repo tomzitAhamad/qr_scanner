@@ -8,6 +8,7 @@ import 'package:qr_code_scanner/core/providers/history_provider.dart';
 import 'package:qr_code_scanner/core/providers/favorite_provider.dart';
 import 'package:qr_code_scanner/core/providers/my_qr_provider.dart';
 import 'package:qr_code_scanner/core/providers/create_qr_provider.dart';
+import 'package:qr_code_scanner/core/providers/settings_provider.dart';
 
 void main() {
   runApp(
@@ -19,6 +20,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => FavoriteProvider()),
         ChangeNotifierProvider(create: (_) => MyQrProvider()),
         ChangeNotifierProvider(create: (_) => CreateQrProvider()),
+        ChangeNotifierProvider(create: (_) => SettingsProvider()),
       ],
       child: const QrScannerApp(),
     ),

@@ -102,8 +102,8 @@ class HistoryItemCard extends StatelessWidget {
 
               Text(
                 item.data,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
                 ),
@@ -112,7 +112,7 @@ class HistoryItemCard extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              Container(height: 1, color: Colors.white.withOpacity(0.05)),
+              Container(height: 1, color: Theme.of(context).dividerColor),
               const SizedBox(height: 8),
 
               Row(
@@ -121,7 +121,7 @@ class HistoryItemCard extends StatelessWidget {
                   Text(
                     _formatDateTime(item.scanTime),
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.4),
+                      color: Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.4),
                       fontSize: 12,
                     ),
                   ),
@@ -130,7 +130,7 @@ class HistoryItemCard extends StatelessWidget {
                       IconButton(
                         icon: Icon(
                           isFav ? Icons.favorite : Icons.favorite_border,
-                          color: isFav ? Colors.redAccent : Colors.white.withOpacity(0.6),
+                          color: isFav ? Colors.redAccent : Theme.of(context).iconTheme.color?.withValues(alpha: 0.6),
                           size: 18,
                         ),
                         onPressed: () {
@@ -142,7 +142,7 @@ class HistoryItemCard extends StatelessWidget {
                       IconButton(
                         icon: Icon(
                           Icons.open_in_new,
-                          color: Colors.white.withOpacity(0.6),
+                          color: Theme.of(context).iconTheme.color?.withValues(alpha: 0.6),
                           size: 18,
                         ),
                         onPressed: () {

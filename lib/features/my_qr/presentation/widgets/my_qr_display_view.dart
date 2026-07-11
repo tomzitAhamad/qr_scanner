@@ -63,53 +63,51 @@ class MyQrDisplayView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     AppStrings.contactDetails,
-                    style: TextStyle(
-                      fontSize: 16,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const Divider(color: Colors.white12, height: 1),
+                  const Divider(height: 1),
                   const SizedBox(height: 12),
 
                   if (myQrProvider.fullName.isNotEmpty)
-                    _buildDetailRow(
-                      Icons.person_outline,
-                      AppStrings.fullNameLabel,
-                      myQrProvider.fullName,
+                    _DetailRow(
+                      icon: Icons.person_outline,
+                      label: AppStrings.fullNameLabel,
+                      value: myQrProvider.fullName,
                     ),
                   if (myQrProvider.phoneNumber.isNotEmpty)
-                    _buildDetailRow(
-                      Icons.phone_outlined,
-                      AppStrings.phoneNumberLabel,
-                      myQrProvider.phoneNumber,
+                    _DetailRow(
+                      icon: Icons.phone_outlined,
+                      label: AppStrings.phoneNumberLabel,
+                      value: myQrProvider.phoneNumber,
                     ),
                   if (myQrProvider.organization.isNotEmpty)
-                    _buildDetailRow(
-                      Icons.business_outlined,
-                      AppStrings.orgLabel,
-                      myQrProvider.organization,
+                    _DetailRow(
+                      icon: Icons.business_outlined,
+                      label: AppStrings.orgLabel,
+                      value: myQrProvider.organization,
                     ),
                   if (myQrProvider.email.isNotEmpty)
-                    _buildDetailRow(
-                      Icons.email_outlined,
-                      AppStrings.emailLabel,
-                      myQrProvider.email,
+                    _DetailRow(
+                      icon: Icons.email_outlined,
+                      label: AppStrings.emailLabel,
+                      value: myQrProvider.email,
                     ),
                   if (myQrProvider.address.isNotEmpty)
-                    _buildDetailRow(
-                      Icons.location_on_outlined,
-                      AppStrings.addressLabel,
-                      myQrProvider.address,
+                    _DetailRow(
+                      icon: Icons.location_on_outlined,
+                      label: AppStrings.addressLabel,
+                      value: myQrProvider.address,
                     ),
                   if (myQrProvider.notes.isNotEmpty)
-                    _buildDetailRow(
-                      Icons.note_alt_outlined,
-                      AppStrings.notesLabel,
-                      myQrProvider.notes,
+                    _DetailRow(
+                      icon: Icons.note_alt_outlined,
+                      label: AppStrings.notesLabel,
+                      value: myQrProvider.notes,
                     ),
                 ],
               ),
@@ -154,42 +152,6 @@ class MyQrDisplayView extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDetailRow(IconData icon, String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, size: 20, color: const Color(0xFF2563EB)),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white.withOpacity(0.5),
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  value,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
           ),
         ],
       ),
@@ -446,7 +408,9 @@ class MyQrDisplayView extends StatelessWidget {
                                 );
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text(AppStrings.vCardCopiedToShare),
+                                    content: Text(
+                                      AppStrings.vCardCopiedToShare,
+                                    ),
                                   ),
                                 );
                               },
@@ -550,6 +514,57 @@ class MyQrDisplayView extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _DetailRow extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+
+  const _DetailRow({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 20, color: const Color(0xFF2563EB)),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.color?.withValues(alpha: 0.5),
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

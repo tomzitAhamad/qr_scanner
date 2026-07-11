@@ -1,5 +1,4 @@
 class AppStrings {
-  // Navigation / Drawer Strings
   static const String appName = "Qr Scanner";
   static const String scanString = "Scan";
   static const String scanImageString = "Scan Image";
@@ -11,15 +10,11 @@ class AppStrings {
   static const String shareString = "Share";
   static const String ourAppsString = "Our Apps";
   static const String removeAdsString = "Remove Ads";
-
-  // Common Dialog & Action Strings
   static const String cancelText = "Cancel";
   static const String clearText = "Clear";
   static const String okText = "OK";
   static const String copyText = "Copy";
   static const String shareActionText = "Share";
-
-  // Favorites Page
   static const String clearFevoriteTitle = "Clear Favorites";
   static const String clearFevoriteMessage =
       "Are you sure you want to clear all favorite items? This action cannot be undone.";
@@ -27,20 +22,39 @@ class AppStrings {
   static const String noFavoritesYet = "No Favorites Yet";
   static const String tapHeartIconToFavorite =
       "Tap the heart icon in history to add items here";
-
-  // History Page
   static const String clearHistoryTitle = "Clear History";
   static const String clearHistoryMessage =
       "Are you sure you want to clear all history?";
   static const String noHistoryYet = "No History Yet";
   static const String scannedQrCodesWillAppear =
       "Scanned QR codes will appear here";
-
-  // Create & Settings Pages Placeholders
   static const String createQrPageTitle = "Create QR Page";
-  static const String settingsPageTitle = "Settings Page";
-
-  // WiFi / Scanner Results Dialogs
+  static const String colorSchemeLabel = "Color scheme";
+  static const String themeLabel = "Theme";
+  static const String beepLabel = "Beep";
+  static const String vibrateLabel = "Vibrate";
+  static const String copyToClipboardLabel = "Copy to clipboard";
+  static const String urlInfoLabel = "URL info";
+  static const String urlInfoDesc =
+      "Try to retrieve more information about URLs";
+  static const String batchScanLabel = "Batch scan mode";
+  static const String batchScanDesc =
+      "Add option for batch scan to scan screen";
+  static const String autoFocusLabel = "Use auto focus";
+  static const String touchFocusLabel = "Touch focus";
+  static const String touchFocusDesc =
+      "Available only with auto focus option turned on.";
+  static const String keepDuplicatesLabel = "Keep duplicates";
+  static const String customActionLabel = "Custom action";
+  static const String customActionDesc = "Add option to link to your own URL";
+  static const String inAppBrowserLabel = "Use in-app browser";
+  static const String addHistoryLabel = "Add scans to history";
+  static const String autoOpenUrlsLabel = "Automatically open URLs";
+  static const String autoOpenUrlsDesc =
+      "Automatically open websites after scanning QR with URL";
+  static const String themeLight = "Light";
+  static const String themeDark = "Dark";
+  static const String themeSystem = "System default";
   static const String wifiInformation = "WiFi Information";
   static const String ssidLabel = "SSID";
   static const String passwordLabel = "Password";
@@ -53,9 +67,8 @@ class AppStrings {
   static const String companyColon = "Company: ";
   static const String notesColon = "Notes: ";
   static const String scannedResult = "Scanned Result";
-
-  // SnackBar & Toast Messages
-  static const String importedSuccessMessage = "Imported to My QR successfully!";
+  static const String importedSuccessMessage =
+      "Imported to My QR successfully!";
   static const String setAsMyQr = "Set as My QR";
   static const String contactPermissionRequired =
       "Contacts permission is required to save contacts.";
@@ -64,8 +77,6 @@ class AppStrings {
   static const String vCardCopiedToShare = "vCard copied to share";
   static const String couldNotOpenContactCreatorError =
       "Could not open native contact creator";
-
-  // My QR Form Strings
   static const String createYourContactQrCode = "Create Your Contact QR Code";
   static const String fillDetailsOrPickContact =
       "Fill in your details below or pick a contact from your device.";
@@ -83,8 +94,6 @@ class AppStrings {
   static const String notesLabel = "Notes / Description";
   static const String notesHint = "Enter any extra info or notes";
   static const String generateQrCodeButton = "Generate QR Code";
-
-  // My QR Preview & Details Page
   static const String scanLayoutPreview = "Scan Layout Preview";
   static const String contactDetails = "Contact Details";
   static const String editInfo = "Edit Info";

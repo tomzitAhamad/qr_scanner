@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:qr_code_scanner/features/create_qr/presentation/pages/create_qr_form_page.dart';
 
 import '../features/create_qr/presentation/pages/create_qr_page.dart';
-import '../features/create_qr/presentation/pages/create_qr_form_page.dart';
 import '../features/favorites/presentation/pages/favorite_page.dart';
 import '../features/history/presentation/pages/history_page.dart';
 import '../features/scanner/presentation/pages/scanner_page.dart';
@@ -18,14 +18,26 @@ class ExitConfirmWrapper extends StatelessWidget {
       context: context,
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
+        backgroundColor: const Color(0xFF1E1E1E),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Row(
           children: [
             Icon(Icons.exit_to_app, color: Color(0xFF2563EB), size: 24),
             SizedBox(width: 10),
-            Text('Exit App'),
+            Text(
+              'Exit App',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
-        content: const Text('Are you sure you want to leave the app?'),
+        content: const Text(
+          'Are you sure you want to leave the app?',
+          style: TextStyle(color: Colors.white70, fontSize: 14),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
