@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/core/constants/app_strings.dart';
 import 'package:qr_code_scanner/core/constants/app_colors.dart';
 import 'package:qr_code_scanner/core/providers/settings_provider.dart';
+import 'package:qr_code_scanner/core/providers/responsive_provider.dart';
 
 class ColorSchemeSelector extends StatelessWidget {
   final SettingsProvider settings;
@@ -11,6 +13,8 @@ class ColorSchemeSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final responsive = context.watch<ResponsiveProvider>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -27,8 +31,8 @@ class ColorSchemeSelector extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 6,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: responsive.isMobile ? 6 : (responsive.isTablet ? 12 : 18),
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
           ),
