@@ -1,20 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:qr_code_scanner/core/constants/app_strings.dart';
+import 'package:qr_code_scanner/core/constants/app_colors.dart';
 
 class SettingsProvider extends ChangeNotifier {
-  static const List<Color> colorSchemes = [
-    Color(0xFF2563EB),
-    Color(0xFFDC2626),
-    Color(0xFFF97316),
-    Color(0xFFF59E0B),
-    Color(0xFF15803D),
-    Color(0xFF10B981),
-    Color(0xFF06B6D4),
-    Color(0xFF4F46E5),
-    Color(0xFF8B5CF6),
-    Color(0xFF6D28D9),
-    Color(0xFF9A3412),
-    Color(0xFF475569),
-  ];
+  static const List<Color> colorSchemes = AppColors.colorSchemes;
   int _colorSchemeIndex = 0;
   ThemeMode _themeMode = ThemeMode.system;
   bool _beep = false;
@@ -116,5 +106,9 @@ class SettingsProvider extends ChangeNotifier {
   void setAutomaticallyOpenUrls(bool value) {
     _automaticallyOpenUrls = value;
     notifyListeners();
+  }
+
+  Future<void> shareApp() async {
+    await SharePlus.instance.share(ShareParams(text: AppStrings.shareAppMessage));
   }
 }

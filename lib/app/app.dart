@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/app/app_routes.dart';
+import 'package:qr_code_scanner/core/constants/app_colors.dart';
 import 'package:qr_code_scanner/core/providers/settings_provider.dart';
 
 class QrScannerApp extends StatelessWidget {
@@ -17,7 +18,7 @@ class QrScannerApp extends StatelessWidget {
       themeMode: settings.themeMode,
       theme: ThemeData(
         brightness: Brightness.light,
-        scaffoldBackgroundColor: const Color(0xFFF8FAFC),
+        scaffoldBackgroundColor: AppColors.background,
         primaryColor: primaryColor,
         colorScheme: ColorScheme.light(
           primary: primaryColor,
@@ -66,7 +67,7 @@ class QrScannerApp extends StatelessWidget {
           elevation: 0,
         ),
         dialogTheme: DialogThemeData(
-          backgroundColor: Colors.white,
+          backgroundColor: AppColors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -127,7 +128,7 @@ class QrScannerApp extends StatelessWidget {
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.black,
+        scaffoldBackgroundColor: AppColors.black,
         primaryColor: primaryColor,
         colorScheme: ColorScheme.dark(
           primary: primaryColor,
@@ -176,7 +177,7 @@ class QrScannerApp extends StatelessWidget {
           elevation: 0,
         ),
         dialogTheme: DialogThemeData(
-          backgroundColor: const Color(0xFF1E1E1E),
+          backgroundColor: AppColors.darkDialogBg,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -191,7 +192,7 @@ class QrScannerApp extends StatelessWidget {
           ),
         ),
         cardTheme: CardThemeData(
-          color: const Color(0xFF1E1E1E),
+          color: AppColors.darkDialogBg,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
             side: const BorderSide(color: Colors.white10, width: 1),
@@ -220,7 +221,7 @@ class QrScannerApp extends StatelessWidget {
         ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
-          fillColor: const Color(0xFF1E1E1E),
+          fillColor: AppColors.darkDialogBg,
           labelStyle: const TextStyle(color: Colors.white60),
           hintStyle: const TextStyle(color: Colors.white30),
           prefixIconColor: Colors.white60,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_code_scanner/core/constants/app_colors.dart';
 
 class DetailRow extends StatelessWidget {
   final IconData icon;
@@ -19,7 +20,7 @@ class DetailRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 20, color: const Color(0xFF2563EB)),
+          Icon(icon, size: 20, color: AppColors.accentBlue),
           const SizedBox(width: 12),
           Expanded(
             child: Column(

@@ -108,4 +108,5 @@ class AppStrings {
   static const String closePreview = "Close Preview";
   static const String share = "Share";
   static const String copy = "Copy";
+  static const String shareAppMessage = "I'm using QR & Barcode Scanner app, the fastest QR and Barcode reader. Try it NOW! https://play.google.com/store/apps/details?id=com.example.qr_code_scanner";
 }

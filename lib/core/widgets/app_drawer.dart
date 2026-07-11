@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/core/constants/app_strings.dart';
 import 'package:qr_code_scanner/core/providers/scanner_provider.dart';
+import 'package:qr_code_scanner/core/providers/settings_provider.dart';
+import 'package:qr_code_scanner/core/constants/app_colors.dart';
 import 'package:qr_code_scanner/core/widgets/drawer_item.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -11,7 +13,7 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * .72,
-      color: const Color(0xff2C2C2C),
+      color: AppColors.drawerBg,
       child: SafeArea(
         child: Column(
           children: [
@@ -84,7 +86,7 @@ class AppDrawer extends StatelessWidget {
               title: AppStrings.shareString,
               onTap: () {
                 Navigator.pop(context);
-                // TODO: Share App
+                context.read<SettingsProvider>().shareApp();
               },
             ),
 
