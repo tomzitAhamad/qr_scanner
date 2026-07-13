@@ -19,32 +19,66 @@ class SettingToggleTile extends StatelessWidget {
     final theme = Theme.of(context);
     final isEnabled = onChanged != null;
 
-    return CheckboxListTile(
-      title: Text(
-        title,
-        style: theme.textTheme.bodyLarge?.copyWith(
-          color: isEnabled ? null : theme.disabledColor,
-          fontWeight: FontWeight.w500,
+    return Semantics(
+      checked: value,
+      enabled: isEnabled,
+      child: InkWell(
+        onTap: isEnabled ? () => onChanged!(!value) : null,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: subtitle == null ? 96 : 112),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 26),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontSize: 20,
+                          color: isEnabled ? null : theme.disabledColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      if (subtitle != null) ...[
+                        const SizedBox(height: 6),
+                        Text(
+                          subtitle!,
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            fontSize: 16,
+                            height: 1.35,
+                            color: isEnabled
+                                ? theme.textTheme.bodyMedium?.color
+                                : theme.disabledColor.withValues(alpha: 0.5),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Transform.scale(
+                  scale: 1.2,
+                  child: Checkbox(
+                    value: value,
+                    onChanged: onChanged,
+                    activeColor: theme.primaryColor,
+                    checkColor: Colors.white,
+                    side: BorderSide(
+                      color: isEnabled
+                          ? theme.colorScheme.onSurface
+                          : theme.disabledColor,
+                      width: 2.2,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-      ),
-      subtitle: subtitle != null
-          ? Text(
-              subtitle!,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: isEnabled
-                    ? theme.textTheme.bodyMedium?.color?.withValues(alpha: 0.65)
-                    : theme.disabledColor.withValues(alpha: 0.5),
-              ),
-            )
-          : null,
-      value: value,
-      onChanged: onChanged,
-      activeColor: theme.primaryColor,
-      checkColor: Colors.white,
-      controlAffinity: ListTileControlAffinity.trailing,
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 2.0,
       ),
     );
   }

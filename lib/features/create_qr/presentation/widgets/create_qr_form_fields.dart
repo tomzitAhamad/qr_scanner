@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CreateQrFormControllers {
-  // Common Controllers
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final emailController = TextEditingController();
@@ -106,8 +105,9 @@ class _CreateQrFormFieldsState extends State<CreateQrFormFields> {
             hintText: "Enter contact number",
             prefixIcon: Icon(Icons.phone_outlined),
           ),
-          validator: (value) =>
-              value == null || value.trim().isEmpty ? "Phone number is required" : null,
+          validator: (value) => value == null || value.trim().isEmpty
+              ? "Phone number is required"
+              : null,
         );
       case "email":
         return Column(
@@ -120,8 +120,9 @@ class _CreateQrFormFieldsState extends State<CreateQrFormFields> {
                 hintText: "Enter recipient email",
                 prefixIcon: Icon(Icons.email_outlined),
               ),
-              validator: (value) =>
-                  value == null || value.trim().isEmpty ? "Email is required" : null,
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? "Email is required"
+                  : null,
             ),
             const SizedBox(height: 16),
             TextFormField(
@@ -156,8 +157,9 @@ class _CreateQrFormFieldsState extends State<CreateQrFormFields> {
                 hintText: "Enter mobile number",
                 prefixIcon: Icon(Icons.phone_outlined),
               ),
-              validator: (value) =>
-                  value == null || value.trim().isEmpty ? "Phone is required" : null,
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? "Phone is required"
+                  : null,
             ),
             const SizedBox(height: 16),
             TextFormField(
@@ -169,8 +171,9 @@ class _CreateQrFormFieldsState extends State<CreateQrFormFields> {
                 hintText: "Enter SMS text",
                 prefixIcon: Icon(Icons.sms_outlined),
               ),
-              validator: (value) =>
-                  value == null || value.trim().isEmpty ? "Message is required" : null,
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? "Message is required"
+                  : null,
             ),
           ],
         );
@@ -179,26 +182,34 @@ class _CreateQrFormFieldsState extends State<CreateQrFormFields> {
           children: [
             TextFormField(
               controller: widget.state.latitudeController,
-              keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+                signed: true,
+              ),
               decoration: const InputDecoration(
                 labelText: "Latitude",
                 hintText: "e.g. 23.8103",
                 prefixIcon: Icon(Icons.map_outlined),
               ),
-              validator: (value) =>
-                  value == null || value.trim().isEmpty ? "Latitude is required" : null,
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? "Latitude is required"
+                  : null,
             ),
             const SizedBox(height: 16),
             TextFormField(
               controller: widget.state.longitudeController,
-              keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+                signed: true,
+              ),
               decoration: const InputDecoration(
                 labelText: "Longitude",
                 hintText: "e.g. 90.4125",
                 prefixIcon: Icon(Icons.explore_outlined),
               ),
-              validator: (value) =>
-                  value == null || value.trim().isEmpty ? "Longitude is required" : null,
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? "Longitude is required"
+                  : null,
             ),
           ],
         );
@@ -213,8 +224,9 @@ class _CreateQrFormFieldsState extends State<CreateQrFormFields> {
                 hintText: "Enter Wi-Fi network name",
                 prefixIcon: Icon(Icons.wifi),
               ),
-              validator: (value) =>
-                  value == null || value.trim().isEmpty ? "Network SSID is required" : null,
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? "Network SSID is required"
+                  : null,
             ),
             const SizedBox(height: 16),
             TextFormField(
@@ -260,8 +272,9 @@ class _CreateQrFormFieldsState extends State<CreateQrFormFields> {
                 hintText: "Enter contact name",
                 prefixIcon: Icon(Icons.person_outline),
               ),
-              validator: (value) =>
-                  value == null || value.trim().isEmpty ? "Name is required" : null,
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? "Name is required"
+                  : null,
             ),
             const SizedBox(height: 16),
             TextFormField(
@@ -324,8 +337,9 @@ class _CreateQrFormFieldsState extends State<CreateQrFormFields> {
                 hintText: "Enter meeting or event name",
                 prefixIcon: Icon(Icons.event),
               ),
-              validator: (value) =>
-                  value == null || value.trim().isEmpty ? "Event title is required" : null,
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? "Event title is required"
+                  : null,
             ),
             const SizedBox(height: 16),
             TextFormField(
@@ -354,8 +368,9 @@ class _CreateQrFormFieldsState extends State<CreateQrFormFields> {
                 hintText: "e.g. 20260710",
                 prefixIcon: Icon(Icons.date_range_outlined),
               ),
-              validator: (value) =>
-                  value == null || value.trim().isEmpty ? "Start Date is required" : null,
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? "Start Date is required"
+                  : null,
             ),
             const SizedBox(height: 16),
             TextFormField(
@@ -365,8 +380,9 @@ class _CreateQrFormFieldsState extends State<CreateQrFormFields> {
                 hintText: "e.g. 20260711",
                 prefixIcon: Icon(Icons.date_range),
               ),
-              validator: (value) =>
-                  value == null || value.trim().isEmpty ? "End Date is required" : null,
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? "End Date is required"
+                  : null,
             ),
           ],
         );

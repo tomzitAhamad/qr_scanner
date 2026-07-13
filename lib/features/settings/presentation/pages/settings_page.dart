@@ -69,7 +69,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final settings = Provider.of<SettingsProvider>(context);
 
     return Scaffold(
@@ -80,26 +79,13 @@ class SettingsPage extends StatelessWidget {
       drawer: const AppDrawer(),
       body: ListView(
         children: [
-          const SizedBox(height: 8),
           ColorSchemeSelector(settings: settings),
-
-          const Divider(height: 24, thickness: 1),
-          ListTile(
-            title: Text(
-              AppStrings.themeLabel,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Text(
-              _getThemeModeName(settings.themeMode),
-              style: theme.textTheme.bodyMedium,
-            ),
-            trailing: const Icon(Icons.arrow_drop_down),
+          const Divider(height: 1, thickness: 1),
+          _ThemeTile(
+            name: _getThemeModeName(settings.themeMode),
             onTap: () => _showThemeDialog(context, settings),
           ),
-
-          const Divider(height: 24, thickness: 1),
+          const Divider(height: 1, thickness: 1),
           SettingToggleTile(
             title: AppStrings.beepLabel,
             value: settings.beep,
@@ -175,4 +161,49 @@ class SettingsPage extends StatelessWidget {
   }
 }
 
+class _ThemeTile extends StatelessWidget {
+  final String name;
+  final VoidCallback onTap;
 
+  const _ThemeTile({required this.name, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return InkWell(
+      onTap: onTap,
+      child: SizedBox(
+        height: 150,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 26),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppStrings.themeLabel,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      name,
+                      style: theme.textTheme.bodyMedium?.copyWith(fontSize: 17),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.arrow_drop_down, size: 30),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

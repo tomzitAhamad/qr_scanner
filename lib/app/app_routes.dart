@@ -125,6 +125,10 @@ class AppRoutes {
         );
         break;
 
+      case "/settings":
+        widget = const SettingsPage();
+        break;
+
       default:
         widget = const ScannerPage();
     }

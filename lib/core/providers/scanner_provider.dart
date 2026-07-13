@@ -19,7 +19,7 @@ class ScannerProvider extends ChangeNotifier {
 
   void setController(MobileScannerController newController) {
     _controller = newController;
-    _isFlashOn = false; // New controller session starts with flash off
+    _isFlashOn = false;
     notifyListeners();
   }
 
@@ -71,7 +71,9 @@ class ScannerProvider extends ChangeNotifier {
     final activeController = _controller;
     final tempController = activeController ?? MobileScannerController();
 
-    final BarcodeCapture? capture = await tempController.analyzeImage(image.path);
+    final BarcodeCapture? capture = await tempController.analyzeImage(
+      image.path,
+    );
 
     if (activeController == null) {
       tempController.dispose();
@@ -102,10 +104,7 @@ class ScannerProvider extends ChangeNotifier {
       return;
     }
 
-    context.read<HistoryProvider>().addHistoryItem(
-      data: result,
-      type: "Image",
-    );
+    context.read<HistoryProvider>().addHistoryItem(data: result, type: "Image");
 
     await QrLauncherService.launchQr(context: context, qrData: result);
   }

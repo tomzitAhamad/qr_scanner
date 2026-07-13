@@ -19,10 +19,11 @@ class ColorSchemeSelector extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: const EdgeInsets.fromLTRB(26, 28, 26, 26),
           child: Text(
             AppStrings.colorSchemeLabel,
-            style: theme.textTheme.titleMedium?.copyWith(
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontSize: 22,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -30,11 +31,12 @@ class ColorSchemeSelector extends StatelessWidget {
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: const EdgeInsets.fromLTRB(26, 0, 26, 28),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: responsive.isMobile ? 6 : (responsive.isTablet ? 12 : 18),
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 18,
+            childAspectRatio: 1,
           ),
           itemCount: AppColors.colorSchemes.length,
           itemBuilder: (context, index) {

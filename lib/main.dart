@@ -11,7 +11,10 @@ import 'package:qr_code_scanner/core/providers/create_qr_provider.dart';
 import 'package:qr_code_scanner/core/providers/settings_provider.dart';
 import 'package:qr_code_scanner/core/providers/responsive_provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final settingsProvider = await SettingsProvider.create();
+
   runApp(
     MultiProvider(
       providers: [
@@ -21,7 +24,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => FavoriteProvider()),
         ChangeNotifierProvider(create: (_) => MyQrProvider()),
         ChangeNotifierProvider(create: (_) => CreateQrProvider()),
-        ChangeNotifierProvider(create: (_) => SettingsProvider()),
+        ChangeNotifierProvider.value(value: settingsProvider),
         ChangeNotifierProvider(create: (_) => ResponsiveProvider()),
       ],
       child: const QrScannerApp(),
