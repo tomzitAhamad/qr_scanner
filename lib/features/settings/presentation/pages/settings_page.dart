@@ -205,11 +205,7 @@ class SettingsPage extends StatelessWidget {
             ),
             const Divider(height: 1, thickness: 1),
           ],
-          SettingToggleTile(
-            title: AppStrings.inAppBrowserLabel,
-            value: settings.useInAppBrowser,
-            onChanged: (val) => settings.setUseInAppBrowser(val ?? false),
-          ),
+
           SettingToggleTile(
             title: AppStrings.addHistoryLabel,
             value: settings.addScansToHistory,

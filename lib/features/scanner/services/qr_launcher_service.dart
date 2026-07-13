@@ -78,9 +78,19 @@ class QrLauncherService {
         await _showUrlInfoDialog(context, qrData);
         return;
       } else {
+        final isPlayStore =
+            qrData.contains("play.google.com") || qrData.contains("market://");
+        final isYoutube =
+            qrData.contains("youtube.com") || qrData.contains("youtu.be");
+        final isMaps = qrData.contains("maps.google.com") ||
+            qrData.contains("google.com/maps");
+        final useInApp = !isPlayStore && !isYoutube && !isMaps;
+
         await launchUrl(
           Uri.parse(qrData),
-          mode: LaunchMode.externalApplication,
+          mode: useInApp
+              ? LaunchMode.inAppBrowserView
+              : LaunchMode.externalApplication,
         );
         return;
       }
@@ -165,7 +175,22 @@ class QrLauncherService {
     }
 
     if (uri != null) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+      final isWebUri = uri.scheme == 'http' || uri.scheme == 'https';
+      final uriString = uri.toString();
+      final isPlayStore = uriString.contains("play.google.com") ||
+          uriString.contains("market://");
+      final isYoutube =
+          uriString.contains("youtube.com") || uriString.contains("youtu.be");
+      final isMaps = uriString.contains("maps.google.com") ||
+          uriString.contains("google.com/maps");
+      final useInApp = !isPlayStore && !isYoutube && !isMaps;
+
+      await launchUrl(
+        uri,
+        mode: isWebUri && useInApp
+            ? LaunchMode.inAppBrowserView
+            : LaunchMode.externalApplication,
+      );
     } else {
       if (settings.urlInfo) {
         await _showPlainTextDialog(context, qrData);
@@ -662,7 +687,20 @@ class _UrlInfoDialogState extends State<_UrlInfoDialog> {
             onPressed: () async {
               Navigator.pop(context);
               final uri = Uri.parse(widget.urlString);
-              await launchUrl(uri, mode: LaunchMode.externalApplication);
+              final isPlayStore = widget.urlString.contains("play.google.com") ||
+                  widget.urlString.contains("market://");
+              final isYoutube = widget.urlString.contains("youtube.com") ||
+                  widget.urlString.contains("youtu.be");
+              final isMaps = widget.urlString.contains("maps.google.com") ||
+                  widget.urlString.contains("google.com/maps");
+              final useInApp = !isPlayStore && !isYoutube && !isMaps;
+
+              await launchUrl(
+                uri,
+                mode: useInApp
+                    ? LaunchMode.inAppBrowserView
+                    : LaunchMode.externalApplication,
+              );
             },
             child: const Text("Open Link"),
           ),

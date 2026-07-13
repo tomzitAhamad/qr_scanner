@@ -44,7 +44,6 @@ class AppStrings {
 
   static const String customActionLabel = "Custom action";
   static const String customActionDesc = "Only launch scans matching your keyword/link";
-  static const String inAppBrowserLabel = "Use in-app browser";
   static const String addHistoryLabel = "Add scans to history";
   static const String autoOpenUrlsLabel = "Automatically open URLs";
   static const String autoOpenUrlsDesc =

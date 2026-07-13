@@ -59,5 +59,10 @@
         <data android:scheme="https"/>
     </intent>
 
+    <!-- For Custom Tabs (In-App Browser) -->
+    <intent>
+        <action android:name="android.support.customtabs.action.CustomTabsService" />
+    </intent>
+
 </queries>
 </manifest>

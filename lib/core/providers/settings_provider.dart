@@ -20,7 +20,6 @@ class SettingsProvider extends ChangeNotifier {
 
   static const _customActionKey = 'settings.customAction';
   static const _customActionUrlKey = 'settings.customActionUrl';
-  static const _useInAppBrowserKey = 'settings.useInAppBrowser';
   static const _addScansToHistoryKey = 'settings.addScansToHistory';
   static const _automaticallyOpenUrlsKey = 'settings.automaticallyOpenUrls';
 
@@ -44,7 +43,6 @@ class SettingsProvider extends ChangeNotifier {
 
   bool _customAction = false;
   String _customActionUrl = "";
-  bool _useInAppBrowser = true;
   bool _addScansToHistory = true;
   bool _automaticallyOpenUrls = false;
   int get colorSchemeIndex => _colorSchemeIndex;
@@ -60,7 +58,6 @@ class SettingsProvider extends ChangeNotifier {
 
   bool get customAction => _customAction;
   String get customActionUrl => _customActionUrl;
-  bool get useInAppBrowser => _useInAppBrowser;
   bool get addScansToHistory => _addScansToHistory;
   bool get automaticallyOpenUrls => _automaticallyOpenUrls;
 
@@ -85,7 +82,6 @@ class SettingsProvider extends ChangeNotifier {
 
     _customAction = _preferences.getBool(_customActionKey) ?? _customAction;
     _customActionUrl = _preferences.getString(_customActionUrlKey) ?? _customActionUrl;
-    _useInAppBrowser = _preferences.getBool(_useInAppBrowserKey) ?? _useInAppBrowser;
     _addScansToHistory = _preferences.getBool(_addScansToHistoryKey) ?? _addScansToHistory;
     _automaticallyOpenUrls =
         _preferences.getBool(_automaticallyOpenUrlsKey) ?? _automaticallyOpenUrls;
@@ -159,11 +155,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setUseInAppBrowser(bool value) {
-    _useInAppBrowser = value;
-    _saveBool(_useInAppBrowserKey, value);
-    notifyListeners();
-  }
+
 
   void setAddScansToHistory(bool value) {
     _addScansToHistory = value;
