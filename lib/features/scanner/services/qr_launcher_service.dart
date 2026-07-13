@@ -74,10 +74,7 @@ class QrLauncherService {
         qrData.startsWith("http://") || qrData.startsWith("https://");
 
     if (isWebUrl) {
-      if (settings.urlInfo) {
-        await _showUrlInfoDialog(context, qrData);
-        return;
-      } else {
+      if (settings.automaticallyOpenUrls) {
         final isPlayStore =
             qrData.contains("play.google.com") || qrData.contains("market://");
         final isYoutube =
@@ -93,6 +90,14 @@ class QrLauncherService {
               : LaunchMode.externalApplication,
         );
         return;
+      } else {
+        if (settings.urlInfo) {
+          await _showUrlInfoDialog(context, qrData);
+          return;
+        } else {
+          await _showPlainTextDialog(context, qrData);
+          return;
+        }
       }
     }
 
