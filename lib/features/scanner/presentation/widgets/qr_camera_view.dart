@@ -111,12 +111,24 @@ class _QrCameraViewState extends State<QrCameraView>
         final settings = context.read<SettingsProvider>();
         final shouldVibrate = settings.vibrate;
         final shouldBeep = settings.beep;
+        final shouldCopy = settings.copyToClipboard;
         scannerProvider.scanned();
         if (shouldVibrate) {
           await HapticFeedback.vibrate();
         }
         if (shouldBeep) {
           await ScanFeedbackService.playBeep();
+        }
+        if (shouldCopy) {
+          await Clipboard.setData(ClipboardData(text: result));
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Copied to clipboard"),
+                duration: Duration(seconds: 1),
+              ),
+            );
+          }
         }
         if (!context.mounted) {
           scannerProvider.reset();

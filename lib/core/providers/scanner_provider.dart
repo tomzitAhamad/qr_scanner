@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/core/providers/history_provider.dart';
+import 'package:qr_code_scanner/core/providers/settings_provider.dart';
 import 'package:qr_code_scanner/features/scanner/services/qr_launcher_service.dart';
 
 class ScannerProvider extends ChangeNotifier {
@@ -106,6 +108,19 @@ class ScannerProvider extends ChangeNotifier {
 
     context.read<HistoryProvider>().addHistoryItem(data: result, type: "Image");
 
+    final settings = context.read<SettingsProvider>();
+    if (settings.copyToClipboard) {
+      await Clipboard.setData(ClipboardData(text: result));
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Copied to clipboard"),
+          duration: Duration(seconds: 1),
+        ),
+      );
+    }
+
+    if (!context.mounted) return;
     await QrLauncherService.launchQr(context: context, qrData: result);
   }
 }
