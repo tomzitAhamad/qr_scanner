@@ -4,6 +4,7 @@ import 'package:qr_code_scanner/core/providers/create_qr_provider.dart';
 import 'package:qr_code_scanner/core/providers/history_provider.dart';
 import 'package:qr_code_scanner/core/providers/settings_provider.dart';
 import 'package:qr_code_scanner/features/create_qr/presentation/widgets/create_qr_form_fields.dart';
+import 'package:qr_code_scanner/features/create_qr/presentation/widgets/create_qr_form_controllers.dart';
 import 'package:qr_code_scanner/features/create_qr/presentation/widgets/generated_qr_result.dart';
 
 class CreateQrFormPage extends StatefulWidget {
@@ -55,53 +56,7 @@ class _CreateQrFormPageState extends State<CreateQrFormPage> {
   void _generate(CreateQrProvider provider) {
     if (!_formKey.currentState!.validate()) return;
 
-    switch (widget.type) {
-      case 'url':
-        provider.generateUrlQr(_controllers.urlController.text.trim());
-      case 'text':
-        provider.generateTextQr(_controllers.textController.text.trim());
-      case 'phone':
-        provider.generatePhoneQr(_controllers.phoneController.text.trim());
-      case 'email':
-        provider.generateEmailQr(
-          to: _controllers.emailController.text.trim(),
-          subject: _controllers.subjectController.text.trim(),
-          body: _controllers.bodyController.text.trim(),
-        );
-      case 'sms':
-        provider.generateSmsQr(
-          phone: _controllers.phoneController.text.trim(),
-          message: _controllers.messageController.text.trim(),
-        );
-      case 'geo':
-        provider.generateGeoQr(
-          latitude: _controllers.latitudeController.text.trim(),
-          longitude: _controllers.longitudeController.text.trim(),
-        );
-      case 'wifi':
-        provider.generateWifiQr(
-          ssid: _controllers.ssidController.text.trim(),
-          password: _controllers.passwordController.text.trim(),
-          security: _controllers.wifiSecurity,
-        );
-      case 'contact':
-        provider.generateContactQr(
-          name: _controllers.nameController.text.trim(),
-          phone: _controllers.phoneController.text.trim(),
-          email: _controllers.emailController.text.trim(),
-          org: _controllers.orgController.text.trim(),
-          address: _controllers.addressController.text.trim(),
-          notes: _controllers.notesController.text.trim(),
-        );
-      case 'calendar':
-        provider.generateCalendarQr(
-          title: _controllers.eventTitleController.text.trim(),
-          location: _controllers.eventLocationController.text.trim(),
-          description: _controllers.eventDescController.text.trim(),
-          start: _controllers.eventStartController.text.trim(),
-          end: _controllers.eventEndController.text.trim(),
-        );
-    }
+    _controllers.generate(provider, widget.type);
 
     if (provider.generatedQrData.isNotEmpty) {
       context.read<HistoryProvider>().addHistoryItem(

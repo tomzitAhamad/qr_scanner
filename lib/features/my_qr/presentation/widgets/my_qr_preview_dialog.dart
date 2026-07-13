@@ -25,16 +25,16 @@ class MyQrPreviewDialog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const MyQrPreviewHeader(),
-            const Divider(color: Colors.white12, height: 1),
+            const Divider(color: AppColors.white12, height: 1),
             MyQrPreviewDetails(myQrProvider: myQrProvider),
-            const Divider(color: Colors.white12, height: 1),
+            const Divider(color: AppColors.white12, height: 1),
             MyQrPreviewActions(myQrProvider: myQrProvider),
-            const Divider(color: Colors.white12, height: 1),
+            const Divider(color: AppColors.white12, height: 1),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 24),
               child: Center(
                 child: Card(
-                  color: Colors.white,
+                  color: AppColors.white,
                   elevation: 4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -47,11 +47,11 @@ class MyQrPreviewDialog extends StatelessWidget {
                       size: 140.0,
                       eyeStyle: const QrEyeStyle(
                         eyeShape: QrEyeShape.square,
-                        color: Colors.black,
+                        color: AppColors.black,
                       ),
                       dataModuleStyle: const QrDataModuleStyle(
                         dataModuleShape: QrDataModuleShape.square,
-                        color: Colors.black,
+                        color: AppColors.black,
                       ),
                       gapless: false,
                     ),

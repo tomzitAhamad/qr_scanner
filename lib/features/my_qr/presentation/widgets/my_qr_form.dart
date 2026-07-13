@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/core/constants/app_strings.dart';
+import 'package:qr_code_scanner/core/constants/app_colors.dart';
 import '../../../../core/providers/my_qr_provider.dart';
 
 class MyQrForm extends StatefulWidget {
@@ -91,7 +92,7 @@ class _MyQrFormState extends State<MyQrForm> {
               hint: AppStrings.phoneNumberHint,
               keyboardType: TextInputType.phone,
               suffix: IconButton(
-                icon: const Icon(Icons.contact_phone, color: Color(0xFF2563EB)),
+                icon: const Icon(Icons.contact_phone, color: AppColors.primary),
                 tooltip: AppStrings.pickFromContactsTooltip,
                 onPressed: () async {
                   final picked = await myQrProvider.pickContactFromDevice(
@@ -143,13 +144,6 @@ class _MyQrFormState extends State<MyQrForm> {
             const SizedBox(height: 32),
 
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF2563EB),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
               onPressed: () {
                 myQrProvider.updateFields(
                   name: _nameController.text,
@@ -164,7 +158,7 @@ class _MyQrFormState extends State<MyQrForm> {
               child: const Text(
                 AppStrings.generateQrCodeButton,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),

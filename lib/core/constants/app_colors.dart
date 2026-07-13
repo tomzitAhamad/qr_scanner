@@ -24,4 +24,19 @@ class AppColors {
     Color(0xFF9A3412),
     Color(0xFF475569),
   ];
+
+  static const Color cameraScanBg = Color(0xFF2563EB);
+  static const Color imageScanBg = Colors.purple;
+  static const Color cameraIcon = Color(0xFF3B82F6);
+  static const Color imageIcon = Colors.purpleAccent;
+  static const Color cameraText = Color(0xFF60A5FA);
+  static const Color imageText = Color(0xFFCE93D8);
+  static const Color deleteColor = Colors.redAccent;
+  static const Color white70 = Colors.white70;
+  static const Color white60 = Colors.white60;
+  static const Color white54 = Colors.white54;
+  static const Color white12 = Colors.white12;
+  static const Color blueAccent = Colors.blueAccent;
+  static const Color black87 = Colors.black87;
+  static const Color transparent = Colors.transparent;
 }

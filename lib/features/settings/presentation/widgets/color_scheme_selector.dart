@@ -53,14 +53,14 @@ class ColorSchemeSelector extends StatelessWidget {
                   border: Border.all(
                     color: isSelected
                         ? (theme.brightness == Brightness.dark
-                            ? Colors.white
-                            : Colors.black87)
-                        : Colors.transparent,
+                            ? AppColors.white
+                            : AppColors.black87)
+                        : AppColors.transparent,
                     width: 2.5,
                   ),
                 ),
                 child: isSelected
-                    ? const Icon(Icons.check, color: Colors.white, size: 20)
+                    ? const Icon(Icons.check, color: AppColors.white, size: 20)
                     : null,
               ),
             );

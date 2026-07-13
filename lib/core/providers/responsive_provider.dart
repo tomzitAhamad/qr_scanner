@@ -15,7 +15,9 @@ class ResponsiveProvider extends ChangeNotifier {
     if (_screenWidth != width || _screenHeight != height) {
       _screenWidth = width;
       _screenHeight = height;
-      Future.microtask(() => notifyListeners());
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        notifyListeners();
+      });
     }
   }
 }

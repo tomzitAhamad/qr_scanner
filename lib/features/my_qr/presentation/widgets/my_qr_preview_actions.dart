@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/core/constants/app_strings.dart';
-import 'package:qr_code_scanner/core/constants/app_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/providers/my_qr_provider.dart';
+import 'my_qr_grid_button.dart';
 
 class MyQrPreviewActions extends StatelessWidget {
   final MyQrProvider myQrProvider;
@@ -25,7 +25,7 @@ class MyQrPreviewActions extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Expanded(
-                child: _GridButton(
+                child: MyQrGridButton(
                   icon: Icons.person_add_alt_1_outlined,
                   label: AppStrings.addContact,
                   onTap: () async {
@@ -71,7 +71,7 @@ class MyQrPreviewActions extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: _GridButton(
+                child: MyQrGridButton(
                   icon: Icons.location_on_outlined,
                   label: AppStrings.showMap,
                   onTap: () async {
@@ -85,7 +85,7 @@ class MyQrPreviewActions extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: _GridButton(
+                child: MyQrGridButton(
                   icon: Icons.phone_outlined,
                   label: AppStrings.call,
                   onTap: () async {
@@ -99,7 +99,7 @@ class MyQrPreviewActions extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: _GridButton(
+                child: MyQrGridButton(
                   icon: Icons.email_outlined,
                   label: AppStrings.sendEmail,
                   onTap: () async {
@@ -120,7 +120,7 @@ class MyQrPreviewActions extends StatelessWidget {
             children: [
               const Expanded(child: SizedBox()),
               Expanded(
-                child: _GridButton(
+                child: MyQrGridButton(
                   icon: Icons.share_outlined,
                   label: AppStrings.share,
                   onTap: () {
@@ -138,7 +138,7 @@ class MyQrPreviewActions extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: _GridButton(
+                child: MyQrGridButton(
                   icon: Icons.copy_outlined,
                   label: AppStrings.copy,
                   onTap: () {
@@ -159,50 +159,6 @@ class MyQrPreviewActions extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _GridButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-
-  const _GridButton({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: AppColors.accentBlue.withValues(alpha: 0.1),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(icon, color: AppColors.accentBlue, size: 24),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              label,
-              style: const TextStyle(fontSize: 11, color: Colors.white70),
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
       ),
     );
   }

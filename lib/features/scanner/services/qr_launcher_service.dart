@@ -707,7 +707,7 @@ class _UrlInfoDialogState extends State<_UrlInfoDialog> {
                     : LaunchMode.externalApplication,
               );
             },
-            child: const Text("Open Link"),
+            child: const Text(AppStrings.openLinkText),
           ),
       ],
     );

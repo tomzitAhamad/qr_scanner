@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/models/history_item.dart';
 import '../../../../core/providers/favorite_provider.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../scanner/services/qr_launcher_service.dart';
 
 class HistoryItemCard extends StatelessWidget {
@@ -51,13 +52,13 @@ class HistoryItemCard extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: isCamera
-                          ? const Color(0xFF2563EB).withValues(alpha: 0.15)
-                          : Colors.purple.withValues(alpha: 0.15),
+                          ? AppColors.cameraScanBg.withValues(alpha: 0.15)
+                          : AppColors.imageScanBg.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
                         color: isCamera
-                            ? const Color(0xFF2563EB).withValues(alpha: 0.5)
-                            : Colors.purple.withValues(alpha: 0.5),
+                            ? AppColors.cameraScanBg.withValues(alpha: 0.5)
+                            : AppColors.imageScanBg.withValues(alpha: 0.5),
                         width: 1,
                       ),
                     ),
@@ -68,8 +69,8 @@ class HistoryItemCard extends StatelessWidget {
                           isCamera ? Icons.camera_alt : Icons.image,
                           size: 14,
                           color: isCamera
-                              ? const Color(0xFF3B82F6)
-                              : Colors.purpleAccent,
+                              ? AppColors.cameraIcon
+                              : AppColors.imageIcon,
                         ),
                         const SizedBox(width: 6),
                         Text(
@@ -78,8 +79,8 @@ class HistoryItemCard extends StatelessWidget {
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: isCamera
-                                ? const Color(0xFF60A5FA)
-                                : Colors.purple[200],
+                                ? AppColors.cameraText
+                                : AppColors.imageText,
                           ),
                         ),
                       ],

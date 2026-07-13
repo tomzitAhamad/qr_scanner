@@ -19,16 +19,22 @@ class ScannerProvider extends ChangeNotifier {
   String? _lastScannedData;
   DateTime? _lastScannedTime;
 
+  void _safeNotifyListeners() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+  }
+
   void setController(MobileScannerController newController) {
     _controller = newController;
     _isFlashOn = false;
-    notifyListeners();
+    _safeNotifyListeners();
   }
 
   void clearController(MobileScannerController controllerToClear) {
     if (_controller == controllerToClear) {
       _controller = null;
-      notifyListeners();
+      _safeNotifyListeners();
     }
   }
 
@@ -46,19 +52,19 @@ class ScannerProvider extends ChangeNotifier {
 
   void scanned() {
     _isScanned = true;
-    notifyListeners();
+    _safeNotifyListeners();
   }
 
   void reset() {
     _isScanned = false;
-    notifyListeners();
+    _safeNotifyListeners();
   }
 
   Future<void> toggleFlash() async {
     if (_controller != null) {
       await _controller!.toggleTorch();
       _isFlashOn = !_isFlashOn;
-      notifyListeners();
+      _safeNotifyListeners();
     }
   }
 

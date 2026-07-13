@@ -16,7 +16,7 @@ class SettingsPage extends StatelessWidget {
       context: context,
       builder: (BuildContext ctx) {
         return AlertDialog(
-          title: const Text("Set Custom Action Filter"),
+          title: const Text(AppStrings.setCustomActionFilterTitle),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,14 +24,14 @@ class SettingsPage extends StatelessWidget {
               TextField(
                 controller: controller,
                 decoration: const InputDecoration(
-                  hintText: "e.g., playstore, youtube, google",
-                  labelText: "Keyword or Domain name",
+                  hintText: AppStrings.customActionFilterDialogHint,
+                  labelText: AppStrings.customActionFilterDialogLabel,
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 12),
               Text(
-                "If set, the app will only process and open QR codes that match this keyword or domain name. Other scans will be ignored.",
+                AppStrings.customActionFilterDialogDesc,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.textTheme.bodyMedium?.color?.withValues(alpha: 0.6),
                   fontSize: 13,
@@ -188,12 +188,12 @@ class SettingsPage extends StatelessWidget {
             ListTile(
               contentPadding: const EdgeInsets.symmetric(horizontal: 26),
               title: const Text(
-                "Custom Action Filter",
+                AppStrings.customActionFilterLabel,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               subtitle: Text(
                 settings.customActionUrl.isEmpty
-                    ? "Tap to set filter keyword/domain (e.g. playstore, youtube)"
+                    ? AppStrings.customActionFilterHint
                     : settings.customActionUrl,
                 style: TextStyle(
                   fontSize: 15,

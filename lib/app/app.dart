@@ -14,6 +14,21 @@ class QrScannerApp extends StatelessWidget {
     final settings = Provider.of<SettingsProvider>(context);
     final primaryColor = settings.primaryColor;
 
+    final sharedAppBarTheme = AppBarTheme(
+      backgroundColor: primaryColor,
+      foregroundColor: Colors.white,
+      elevation: 0,
+    );
+
+    final sharedElevatedButtonTheme = ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: primaryColor,
+        foregroundColor: Colors.white,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    );
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Qr Scanner",
@@ -63,11 +78,7 @@ class QrScannerApp extends StatelessWidget {
             color: Colors.black45,
           ),
         ),
-        appBarTheme: AppBarTheme(
-          backgroundColor: primaryColor,
-          foregroundColor: Colors.white,
-          elevation: 0,
-        ),
+        appBarTheme: sharedAppBarTheme,
         dialogTheme: DialogThemeData(
           backgroundColor: AppColors.white,
           shape: RoundedRectangleBorder(
@@ -91,16 +102,7 @@ class QrScannerApp extends StatelessWidget {
           ),
           elevation: 1,
         ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: primaryColor,
-            foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-        ),
+        elevatedButtonTheme: sharedElevatedButtonTheme,
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             foregroundColor: primaryColor,
@@ -173,11 +175,7 @@ class QrScannerApp extends StatelessWidget {
             color: Colors.white54,
           ),
         ),
-        appBarTheme: AppBarTheme(
-          backgroundColor: primaryColor,
-          foregroundColor: Colors.white,
-          elevation: 0,
-        ),
+        appBarTheme: sharedAppBarTheme,
         dialogTheme: DialogThemeData(
           backgroundColor: AppColors.darkDialogBg,
           shape: RoundedRectangleBorder(
@@ -201,16 +199,7 @@ class QrScannerApp extends StatelessWidget {
           ),
           elevation: 0,
         ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: primaryColor,
-            foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-        ),
+        elevatedButtonTheme: sharedElevatedButtonTheme,
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             foregroundColor: Colors.white,
@@ -242,10 +231,16 @@ class QrScannerApp extends StatelessWidget {
       onGenerateRoute: AppRoutes.generateRoute,
       builder: (context, child) {
         final mediaQuery = MediaQuery.of(context);
-        context.read<ResponsiveProvider>().updateMetrics(mediaQuery.size.width, mediaQuery.size.height);
+        context.read<ResponsiveProvider>().updateMetrics(
+          mediaQuery.size.width,
+          mediaQuery.size.height,
+        );
         return Listener(
           onPointerDown: (event) {
-            final settings = Provider.of<SettingsProvider>(context, listen: false);
+            final settings = Provider.of<SettingsProvider>(
+              context,
+              listen: false,
+            );
             if (settings.beep) {
               ScanFeedbackService.playBeep();
             }

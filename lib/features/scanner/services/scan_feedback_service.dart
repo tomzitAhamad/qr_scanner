@@ -16,8 +16,6 @@ class ScanFeedbackService {
 
     try {
       await _channel.invokeMethod<void>('playBeep');
-    } on PlatformException {
-      // Scanning can continue when a device does not provide a system tone.
-    }
+    } on PlatformException {}
   }
 }

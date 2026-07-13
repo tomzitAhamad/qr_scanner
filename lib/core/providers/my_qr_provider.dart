@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyQrProvider extends ChangeNotifier {
+  SharedPreferences? _preferences;
+
   String _fullName = "";
   String _organization = "";
   String _address = "";
@@ -10,6 +13,15 @@ class MyQrProvider extends ChangeNotifier {
   String _email = "";
   String _notes = "";
   String? _generatedQrCodeData;
+
+  MyQrProvider() {
+    _init();
+  }
+
+  Future<void> _init() async {
+    _preferences = await SharedPreferences.getInstance();
+    _loadMyQr();
+  }
 
   String get fullName => _fullName;
   String get organization => _organization;
@@ -20,6 +32,31 @@ class MyQrProvider extends ChangeNotifier {
   String? get generatedQrCodeData => _generatedQrCodeData;
   bool get hasQrCode =>
       _generatedQrCodeData != null && _generatedQrCodeData!.isNotEmpty;
+
+  void _loadMyQr() {
+    _fullName = _preferences?.getString('myqr.fullName') ?? "";
+    _organization = _preferences?.getString('myqr.organization') ?? "";
+    _address = _preferences?.getString('myqr.address') ?? "";
+    _phoneNumber = _preferences?.getString('myqr.phoneNumber') ?? "";
+    _email = _preferences?.getString('myqr.email') ?? "";
+    _notes = _preferences?.getString('myqr.notes') ?? "";
+    _generatedQrCodeData = _preferences?.getString('myqr.generatedQrCodeData');
+    notifyListeners();
+  }
+
+  void _saveMyQr() {
+    _preferences?.setString('myqr.fullName', _fullName);
+    _preferences?.setString('myqr.organization', _organization);
+    _preferences?.setString('myqr.address', _address);
+    _preferences?.setString('myqr.phoneNumber', _phoneNumber);
+    _preferences?.setString('myqr.email', _email);
+    _preferences?.setString('myqr.notes', _notes);
+    if (_generatedQrCodeData != null) {
+      _preferences?.setString('myqr.generatedQrCodeData', _generatedQrCodeData!);
+    } else {
+      _preferences?.remove('myqr.generatedQrCodeData');
+    }
+  }
 
   void updateFields({
     required String name,
@@ -35,12 +72,14 @@ class MyQrProvider extends ChangeNotifier {
     _phoneNumber = phone;
     _email = mail;
     _notes = note;
+    _saveMyQr();
     notifyListeners();
   }
 
   void generateQrCode() {
     if (_fullName.trim().isEmpty && _phoneNumber.trim().isEmpty) {
       _generatedQrCodeData = null;
+      _saveMyQr();
       notifyListeners();
       return;
     }
@@ -57,6 +96,7 @@ class MyQrProvider extends ChangeNotifier {
       ..writeln("END:VCARD");
 
     _generatedQrCodeData = vcard.toString();
+    _saveMyQr();
     notifyListeners();
   }
 
@@ -68,11 +108,13 @@ class MyQrProvider extends ChangeNotifier {
     _email = "";
     _notes = "";
     _generatedQrCodeData = null;
+    _saveMyQr();
     notifyListeners();
   }
 
   void editQrCode() {
     _generatedQrCodeData = null;
+    _saveMyQr();
     notifyListeners();
   }
 
@@ -143,6 +185,7 @@ class MyQrProvider extends ChangeNotifier {
         _organization = "";
       }
 
+      _saveMyQr();
       notifyListeners();
       return true;
     } catch (e) {

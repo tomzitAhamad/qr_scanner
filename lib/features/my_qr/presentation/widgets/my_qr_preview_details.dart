@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/providers/my_qr_provider.dart';
+import '../../../../core/constants/app_colors.dart';
 
 class MyQrPreviewDetails extends StatelessWidget {
   final MyQrProvider myQrProvider;
@@ -19,7 +20,7 @@ class MyQrPreviewDetails extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: AppColors.white,
               ),
             ),
           if (myQrProvider.organization.isNotEmpty) ...[
@@ -28,7 +29,7 @@ class MyQrPreviewDetails extends StatelessWidget {
               myQrProvider.organization,
               style: const TextStyle(
                 fontSize: 16,
-                color: Colors.white70,
+                color: AppColors.white70,
               ),
             ),
           ],
@@ -38,7 +39,7 @@ class MyQrPreviewDetails extends StatelessWidget {
               myQrProvider.address,
               style: const TextStyle(
                 fontSize: 14,
-                color: Colors.white60,
+                color: AppColors.white60,
               ),
             ),
           ],
@@ -48,7 +49,7 @@ class MyQrPreviewDetails extends StatelessWidget {
               myQrProvider.phoneNumber,
               style: const TextStyle(
                 fontSize: 14,
-                color: Colors.white60,
+                color: AppColors.white60,
               ),
             ),
           ],
@@ -58,7 +59,7 @@ class MyQrPreviewDetails extends StatelessWidget {
               myQrProvider.email,
               style: const TextStyle(
                 fontSize: 14,
-                color: Colors.white60,
+                color: AppColors.white60,
               ),
             ),
           ],
@@ -69,7 +70,7 @@ class MyQrPreviewDetails extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 14,
                 fontStyle: FontStyle.italic,
-                color: Colors.white54,
+                color: AppColors.white54,
               ),
             ),
           ],

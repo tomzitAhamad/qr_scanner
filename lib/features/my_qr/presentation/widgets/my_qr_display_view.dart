@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/core/constants/app_strings.dart';
+import 'package:qr_code_scanner/core/constants/app_colors.dart';
 import 'package:qr_code_scanner/core/providers/responsive_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import '../../../../core/providers/my_qr_provider.dart';
@@ -24,7 +25,7 @@ class MyQrDisplayView extends StatelessWidget {
         children: [
           Center(
             child: Card(
-              color: Colors.white,
+              color: AppColors.white,
               elevation: 8,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -37,11 +38,11 @@ class MyQrDisplayView extends StatelessWidget {
                   size: 220.0,
                   eyeStyle: const QrEyeStyle(
                     eyeShape: QrEyeShape.square,
-                    color: Colors.black,
+                    color: AppColors.black,
                   ),
                   dataModuleStyle: const QrDataModuleStyle(
                     dataModuleShape: QrDataModuleShape.square,
-                    color: Colors.black,
+                    color: AppColors.black,
                   ),
                   gapless: false,
                 ),
@@ -66,7 +67,6 @@ class MyQrDisplayView extends StatelessWidget {
       );
     }
 
-    // Right Column content (Fields + Action Buttons)
     Widget detailsColumn() {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -149,7 +149,7 @@ class MyQrDisplayView extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.redAccent,
+                    backgroundColor: AppColors.deleteColor,
                   ),
                   onPressed: () {
                     myQrProvider.clearQrCode();

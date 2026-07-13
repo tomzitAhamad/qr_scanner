@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/core/constants/app_strings.dart';
+import 'package:qr_code_scanner/core/constants/app_colors.dart';
 
 class MyQrPreviewHeader extends StatelessWidget {
   const MyQrPreviewHeader({super.key});
@@ -15,7 +16,7 @@ class MyQrPreviewHeader extends StatelessWidget {
         children: [
           const Icon(
             Icons.person_outline,
-            color: Colors.blueAccent,
+            color: AppColors.blueAccent,
             size: 28,
           ),
           const SizedBox(width: 12),
@@ -26,7 +27,7 @@ class MyQrPreviewHeader extends StatelessWidget {
                 Text(
                   AppStrings.contactTitle,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -34,7 +35,7 @@ class MyQrPreviewHeader extends StatelessWidget {
                 Text(
                   AppStrings.scannedContactCardPreview,
                   style: TextStyle(
-                    color: Colors.white54,
+                    color: AppColors.white54,
                     fontSize: 11,
                   ),
                 ),
@@ -44,7 +45,7 @@ class MyQrPreviewHeader extends StatelessWidget {
           IconButton(
             icon: const Icon(
               Icons.star_outline,
-              color: Colors.white54,
+              color: AppColors.white54,
             ),
             onPressed: () {},
           ),

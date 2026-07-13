@@ -105,4 +105,11 @@ class AppStrings {
   static const String share = "Share";
   static const String copy = "Copy";
   static const String shareAppMessage = "I'm using QR & Barcode Scanner app, the fastest QR and Barcode reader. Try it NOW! https://play.google.com/store/apps/details?id=com.example.qr_code_scanner";
+  static const String customActionFilterLabel = "Custom Action Filter";
+  static const String customActionFilterHint = "Tap to set filter keyword/domain (e.g. playstore, youtube)";
+  static const String setCustomActionFilterTitle = "Set Custom Action Filter";
+  static const String customActionFilterDialogHint = "e.g., playstore, youtube, google";
+  static const String customActionFilterDialogLabel = "Keyword or Domain name";
+  static const String customActionFilterDialogDesc = "If set, the app will only process and open QR codes that match this keyword or domain name. Other scans will be ignored.";
+  static const String openLinkText = "Open Link";
 }

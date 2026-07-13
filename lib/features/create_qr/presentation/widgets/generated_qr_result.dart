@@ -79,9 +79,6 @@ class GeneratedQrResult extends StatelessWidget {
             const SizedBox(width: 16),
             Expanded(
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF2563EB),
-                ),
                 onPressed: onReset,
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
