@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/core/providers/scanner_provider.dart';
 import 'package:qr_code_scanner/core/providers/history_provider.dart';
 import 'package:qr_code_scanner/core/providers/settings_provider.dart';
+import 'package:qr_code_scanner/features/scanner/services/scan_feedback_service.dart';
 import 'package:qr_code_scanner/features/scanner/services/qr_launcher_service.dart';
 
 class QrCameraView extends StatefulWidget {
@@ -107,14 +108,19 @@ class _QrCameraViewState extends State<QrCameraView>
 
         if (scannerProvider.checkDuplicateAndSet(result)) return;
 
-        final shouldVibrate = context.read<SettingsProvider>().vibrate;
+        final settings = context.read<SettingsProvider>();
+        final shouldVibrate = settings.vibrate;
+        final shouldBeep = settings.beep;
         scannerProvider.scanned();
         if (shouldVibrate) {
           await HapticFeedback.vibrate();
-          if (!context.mounted) {
-            scannerProvider.reset();
-            return;
-          }
+        }
+        if (shouldBeep) {
+          await ScanFeedbackService.playBeep();
+        }
+        if (!context.mounted) {
+          scannerProvider.reset();
+          return;
         }
         if (context.mounted) {
           context.read<HistoryProvider>().addHistoryItem(

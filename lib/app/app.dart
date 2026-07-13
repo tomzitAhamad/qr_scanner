@@ -4,6 +4,7 @@ import 'package:qr_code_scanner/app/app_routes.dart';
 import 'package:qr_code_scanner/core/constants/app_colors.dart';
 import 'package:qr_code_scanner/core/providers/settings_provider.dart';
 import 'package:qr_code_scanner/core/providers/responsive_provider.dart';
+import 'package:qr_code_scanner/features/scanner/services/scan_feedback_service.dart';
 
 class QrScannerApp extends StatelessWidget {
   const QrScannerApp({super.key});
@@ -242,7 +243,15 @@ class QrScannerApp extends StatelessWidget {
       builder: (context, child) {
         final mediaQuery = MediaQuery.of(context);
         context.read<ResponsiveProvider>().updateMetrics(mediaQuery.size.width, mediaQuery.size.height);
-        return child!;
+        return Listener(
+          onPointerDown: (event) {
+            final settings = Provider.of<SettingsProvider>(context, listen: false);
+            if (settings.beep) {
+              ScanFeedbackService.playBeep();
+            }
+          },
+          child: child!,
+        );
       },
     );
   }
