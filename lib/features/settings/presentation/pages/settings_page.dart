@@ -108,12 +108,6 @@ class SettingsPage extends StatelessWidget {
             onChanged: (val) => settings.setUrlInfo(val ?? false),
           ),
           SettingToggleTile(
-            title: AppStrings.batchScanLabel,
-            subtitle: AppStrings.batchScanDesc,
-            value: settings.batchScanMode,
-            onChanged: (val) => settings.setBatchScanMode(val ?? false),
-          ),
-          SettingToggleTile(
             title: AppStrings.autoFocusLabel,
             value: settings.useAutoFocus,
             onChanged: (val) => settings.setUseAutoFocus(val ?? false),

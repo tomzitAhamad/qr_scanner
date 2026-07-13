@@ -64,18 +64,23 @@ class ScannerAppBar extends StatelessWidget {
     );
   }
 
-  Widget _circleIcon({required IconData icon, required VoidCallback onTap}) {
+  Widget _circleIcon({
+    required IconData icon,
+    required VoidCallback onTap,
+    Color color = Colors.white,
+    Color? bgColor,
+  }) {
     return InkWell(
       borderRadius: BorderRadius.circular(50),
       onTap: onTap,
       child: Container(
         height: 46,
         width: 46,
-        decoration: const BoxDecoration(
-          color: Color(0x2EFFFFFF),
+        decoration: BoxDecoration(
+          color: bgColor ?? const Color(0x2EFFFFFF),
           shape: BoxShape.circle,
         ),
-        child: Icon(icon, color: Colors.white, size: 24),
+        child: Icon(icon, color: color, size: 24),
       ),
     );
   }

@@ -63,64 +63,69 @@ class ScannerProvider extends ChangeNotifier {
   }
 
   Future<void> scanImage(BuildContext context) async {
-    final ImagePicker picker = ImagePicker();
+    scanned(); // Pause camera scanner while picking and scanning
+    try {
+      final ImagePicker picker = ImagePicker();
 
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
-    if (image == null) return;
-    if (!context.mounted) return;
-
-    final activeController = _controller;
-    final tempController = activeController ?? MobileScannerController();
-
-    final BarcodeCapture? capture = await tempController.analyzeImage(
-      image.path,
-    );
-
-    if (activeController == null) {
-      tempController.dispose();
-    }
-
-    if (!context.mounted) return;
-
-    if (capture == null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("No QR Code Found")));
-      return;
-    }
-
-    if (capture.barcodes.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("No QR Code Found")));
-      return;
-    }
-
-    final String? result = capture.barcodes.first.rawValue;
-
-    if (result == null || result.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Invalid QR Code")));
-      return;
-    }
-
-    context.read<HistoryProvider>().addHistoryItem(data: result, type: "Image");
-
-    final settings = context.read<SettingsProvider>();
-    if (settings.copyToClipboard) {
-      await Clipboard.setData(ClipboardData(text: result));
+      if (image == null) return;
       if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Copied to clipboard"),
-          duration: Duration(seconds: 1),
-        ),
-      );
-    }
 
-    if (!context.mounted) return;
-    await QrLauncherService.launchQr(context: context, qrData: result);
+      final activeController = _controller;
+      final tempController = activeController ?? MobileScannerController();
+
+      final BarcodeCapture? capture = await tempController.analyzeImage(
+        image.path,
+      );
+
+      if (activeController == null) {
+        tempController.dispose();
+      }
+
+      if (!context.mounted) return;
+
+      if (capture == null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("No QR Code Found")));
+        return;
+      }
+
+      if (capture.barcodes.isEmpty) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("No QR Code Found")));
+        return;
+      }
+
+      final String? result = capture.barcodes.first.rawValue;
+
+      if (result == null || result.isEmpty) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("Invalid QR Code")));
+        return;
+      }
+
+      context.read<HistoryProvider>().addHistoryItem(data: result, type: "Image");
+
+      final settings = context.read<SettingsProvider>();
+      if (settings.copyToClipboard) {
+        await Clipboard.setData(ClipboardData(text: result));
+        if (!context.mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Copied to clipboard"),
+            duration: Duration(seconds: 1),
+          ),
+        );
+      }
+
+      if (!context.mounted) return;
+      await QrLauncherService.launchQr(context: context, qrData: result);
+    } finally {
+      reset(); // Resume camera scanner when done or if cancelled/failed
+    }
   }
 }

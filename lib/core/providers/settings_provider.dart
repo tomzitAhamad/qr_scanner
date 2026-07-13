@@ -15,7 +15,6 @@ class SettingsProvider extends ChangeNotifier {
   static const _vibrateKey = 'settings.vibrate';
   static const _copyToClipboardKey = 'settings.copyToClipboard';
   static const _urlInfoKey = 'settings.urlInfo';
-  static const _batchScanModeKey = 'settings.batchScanMode';
   static const _useAutoFocusKey = 'settings.useAutoFocus';
   static const _touchFocusKey = 'settings.touchFocus';
   static const _keepDuplicatesKey = 'settings.keepDuplicates';
@@ -39,7 +38,6 @@ class SettingsProvider extends ChangeNotifier {
   bool _vibrate = false;
   bool _copyToClipboard = false;
   bool _urlInfo = true;
-  bool _batchScanMode = false;
   bool _useAutoFocus = true;
   bool _touchFocus = true;
   bool _keepDuplicates = true;
@@ -55,7 +53,6 @@ class SettingsProvider extends ChangeNotifier {
   bool get vibrate => _vibrate;
   bool get copyToClipboard => _copyToClipboard;
   bool get urlInfo => _urlInfo;
-  bool get batchScanMode => _batchScanMode;
   bool get useAutoFocus => _useAutoFocus;
   bool get touchFocus => _touchFocus;
   bool get keepDuplicates => _keepDuplicates;
@@ -80,7 +77,6 @@ class SettingsProvider extends ChangeNotifier {
     _vibrate = _preferences.getBool(_vibrateKey) ?? _vibrate;
     _copyToClipboard = _preferences.getBool(_copyToClipboardKey) ?? _copyToClipboard;
     _urlInfo = _preferences.getBool(_urlInfoKey) ?? _urlInfo;
-    _batchScanMode = _preferences.getBool(_batchScanModeKey) ?? _batchScanMode;
     _useAutoFocus = _preferences.getBool(_useAutoFocusKey) ?? _useAutoFocus;
     _touchFocus = _preferences.getBool(_touchFocusKey) ?? _touchFocus;
     _keepDuplicates = _preferences.getBool(_keepDuplicatesKey) ?? _keepDuplicates;
@@ -130,12 +126,6 @@ class SettingsProvider extends ChangeNotifier {
   void setUrlInfo(bool value) {
     _urlInfo = value;
     _saveBool(_urlInfoKey, value);
-    notifyListeners();
-  }
-
-  void setBatchScanMode(bool value) {
-    _batchScanMode = value;
-    _saveBool(_batchScanModeKey, value);
     notifyListeners();
   }
 

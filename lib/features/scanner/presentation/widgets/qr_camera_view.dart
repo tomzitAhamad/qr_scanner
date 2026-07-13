@@ -140,6 +140,7 @@ class _QrCameraViewState extends State<QrCameraView>
             type: "Camera",
           );
         }
+
         QrLauncherService.launchQr(context: context, qrData: result);
 
         scannerProvider.reset();

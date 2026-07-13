@@ -23,7 +23,7 @@ class QrLauncherService {
 
     if (isWebUrl) {
       if (settings.urlInfo) {
-        _showUrlInfoDialog(context, qrData);
+        await _showUrlInfoDialog(context, qrData);
         return;
       } else {
         await launchUrl(
@@ -37,7 +37,12 @@ class QrLauncherService {
     Uri? uri;
 
     if (qrData.startsWith("mailto:")) {
-      uri = Uri.parse(qrData);
+      if (settings.urlInfo) {
+        await _showEmailDialog(context, qrData);
+        return;
+      } else {
+        uri = Uri.parse(qrData);
+      }
     } else if (qrData.startsWith("tel:")) {
       uri = Uri.parse(qrData);
     } else if (qrData.startsWith("sms:")) {
@@ -55,22 +60,77 @@ class QrLauncherService {
         qrData.startsWith("market://")) {
       uri = Uri.parse(qrData);
     } else if (qrData.startsWith("WIFI:")) {
-      _showWiFiDialog(context, qrData);
+      if (settings.urlInfo) {
+        await _showWiFiDialog(context, qrData);
+      } else {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("WiFi Scan: $qrData"),
+              duration: const Duration(seconds: 3),
+            ),
+          );
+        }
+      }
       return;
     } else if (qrData.startsWith("BEGIN:VCARD") ||
         qrData.contains("BEGIN:VCARD")) {
-      _showVCardDialog(context, qrData);
+      if (settings.urlInfo) {
+        await _showVCardDialog(context, qrData);
+      } else {
+        try {
+          final contacts = FlutterContacts.vCard.import(qrData);
+          if (contacts.isNotEmpty) {
+            final contact = contacts.first;
+            final status = await Permission.contacts.request();
+            if (status.isGranted) {
+              await FlutterContacts.native.showCreator(contact: contact);
+            } else {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Contact permission required to save"),
+                  ),
+                );
+              }
+            }
+          } else {
+            if (context.mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Contact details: $qrData")),
+              );
+            }
+          }
+        } catch (_) {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Scanned: $qrData")),
+            );
+          }
+        }
+      }
       return;
     }
 
     if (uri != null) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
-      _showPlainTextDialog(context, qrData);
+      if (settings.urlInfo) {
+        await _showPlainTextDialog(context, qrData);
+      } else {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Scanned: $qrData"),
+              duration: const Duration(seconds: 3),
+            ),
+          );
+        }
+      }
     }
   }
 
-  static void _showWiFiDialog(BuildContext context, String wifiData) {
+  static Future<void> _showWiFiDialog(BuildContext context, String wifiData) async {
     String ssid = "";
     String password = "";
     String security = "";
@@ -92,7 +152,7 @@ class QrLauncherService {
       }
     }
 
-    showDialog(
+    await showDialog(
       context: context,
       builder: (_) {
         return AlertDialog(
@@ -119,16 +179,16 @@ class QrLauncherService {
     );
   }
 
-  static void _showVCardDialog(BuildContext context, String vCardData) {
+  static Future<void> _showVCardDialog(BuildContext context, String vCardData) async {
     try {
       final contacts = FlutterContacts.vCard.import(vCardData);
       if (contacts.isEmpty) {
-        _showPlainTextDialog(context, vCardData);
+        await _showPlainTextDialog(context, vCardData);
         return;
       }
       final contact = contacts.first;
 
-      showDialog(
+      await showDialog(
         context: context,
         builder: (dialogContext) {
           return AlertDialog(
@@ -232,12 +292,62 @@ class QrLauncherService {
         },
       );
     } catch (e) {
-      _showPlainTextDialog(context, vCardData);
+      if (!context.mounted) return;
+      await _showPlainTextDialog(context, vCardData);
     }
   }
 
-  static void _showPlainTextDialog(BuildContext context, String text) {
-    showDialog(
+  static Future<void> _showEmailDialog(BuildContext context, String emailData) async {
+    final emailUri = Uri.parse(emailData);
+    final emailAddress = emailUri.path;
+
+    await showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          title: const Text("Email Information"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text("Would you like to send an email to?"),
+              const SizedBox(height: 12),
+              Text(
+                emailAddress,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: const Text(AppStrings.cancelText),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(dialogContext);
+                Clipboard.setData(ClipboardData(text: emailAddress));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text(AppStrings.copiedToClipboard)),
+                );
+              },
+              child: const Text(AppStrings.copyText),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(dialogContext);
+                await launchUrl(emailUri, mode: LaunchMode.externalApplication);
+              },
+              child: const Text("Send Email"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  static Future<void> _showPlainTextDialog(BuildContext context, String text) async {
+    await showDialog(
       context: context,
       builder: (dialogContext) {
         return AlertDialog(
@@ -264,8 +374,8 @@ class QrLauncherService {
     );
   }
 
-  static void _showUrlInfoDialog(BuildContext context, String urlString) {
-    showDialog(
+  static Future<void> _showUrlInfoDialog(BuildContext context, String urlString) async {
+    await showDialog(
       context: context,
       barrierDismissible: false,
       builder: (dialogContext) {

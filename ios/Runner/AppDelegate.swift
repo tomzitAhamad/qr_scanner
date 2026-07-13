@@ -8,7 +8,13 @@ import AudioToolbox
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    let result = super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    
+    if let controller = window?.rootViewController as? FlutterViewController {
+      registerChannel(with: controller.binaryMessenger)
+    }
+    
+    return result
   }
 
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
@@ -16,18 +22,22 @@ import AudioToolbox
     
     let registrar = engineBridge.pluginRegistry.registrar(forPlugin: "ScanFeedbackPlugin")
     if let messenger = registrar?.messenger() {
-      let feedbackChannel = FlutterMethodChannel(name: "com.example.qr_code_scanner/scan_feedback",
-                                                binaryMessenger: messenger)
-      feedbackChannel.setMethodCallHandler({
-        (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
-        if call.method == "playBeep" {
-          self.playBeep()
-          result(nil)
-        } else {
-          result(FlutterMethodNotImplemented)
-        }
-      })
+      registerChannel(with: messenger)
     }
+  }
+
+  private func registerChannel(with messenger: FlutterBinaryMessenger) {
+    let feedbackChannel = FlutterMethodChannel(name: "com.example.qr_code_scanner/scan_feedback",
+                                              binaryMessenger: messenger)
+    feedbackChannel.setMethodCallHandler({
+      (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
+      if call.method == "playBeep" {
+        self.playBeep()
+        result(nil)
+      } else {
+        result(FlutterMethodNotImplemented)
+      }
+    })
   }
 
   private func playBeep() {

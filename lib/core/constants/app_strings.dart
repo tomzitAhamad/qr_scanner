@@ -37,9 +37,6 @@ class AppStrings {
   static const String urlInfoLabel = "URL info";
   static const String urlInfoDesc =
       "Try to retrieve more information about URLs";
-  static const String batchScanLabel = "Batch scan mode";
-  static const String batchScanDesc =
-      "Add option for batch scan to scan screen";
   static const String autoFocusLabel = "Use auto focus";
   static const String touchFocusLabel = "Touch focus";
   static const String touchFocusDesc =
