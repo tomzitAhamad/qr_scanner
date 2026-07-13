@@ -18,17 +18,18 @@ class QrLauncherService {
     required String qrData,
   }) async {
     final settings = context.read<SettingsProvider>();
-    final isWebUrl = qrData.startsWith("http://") || qrData.startsWith("https://");
+    final isWebUrl =
+        qrData.startsWith("http://") || qrData.startsWith("https://");
 
     if (isWebUrl) {
       if (settings.urlInfo) {
         _showUrlInfoDialog(context, qrData);
         return;
-      } else if (settings.automaticallyOpenUrls) {
-        await launchUrl(Uri.parse(qrData), mode: LaunchMode.externalApplication);
-        return;
       } else {
-        _showStandardUrlDialog(context, qrData);
+        await launchUrl(
+          Uri.parse(qrData),
+          mode: LaunchMode.externalApplication,
+        );
         return;
       }
     }
@@ -263,62 +264,12 @@ class QrLauncherService {
     );
   }
 
-  static void _showStandardUrlDialog(BuildContext context, String urlString) {
-    showDialog(
-      context: context,
-      builder: (dialogContext) {
-        return AlertDialog(
-          title: const Text("Web Link"),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text("Would you like to open this link?"),
-              const SizedBox(height: 12),
-              Text(
-                urlString,
-                style: const TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(dialogContext),
-              child: const Text(AppStrings.cancelText),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(dialogContext);
-                Clipboard.setData(ClipboardData(text: urlString));
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text(AppStrings.copiedToClipboard)),
-                );
-              },
-              child: const Text(AppStrings.copyText),
-            ),
-            TextButton(
-              onPressed: () async {
-                Navigator.pop(dialogContext);
-                final uri = Uri.parse(urlString);
-                await launchUrl(uri, mode: LaunchMode.externalApplication);
-              },
-              child: const Text("Open"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   static void _showUrlInfoDialog(BuildContext context, String urlString) {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (dialogContext) {
-        return _UrlInfoDialog(
-          urlString: urlString,
-          parentContext: context,
-        );
+        return _UrlInfoDialog(urlString: urlString, parentContext: context);
       },
     );
   }
@@ -328,10 +279,7 @@ class _UrlInfoDialog extends StatefulWidget {
   final String urlString;
   final BuildContext parentContext;
 
-  const _UrlInfoDialog({
-    required this.urlString,
-    required this.parentContext,
-  });
+  const _UrlInfoDialog({required this.urlString, required this.parentContext});
 
   @override
   State<_UrlInfoDialog> createState() => _UrlInfoDialogState();
@@ -359,7 +307,10 @@ class _UrlInfoDialogState extends State<_UrlInfoDialog> {
     client.connectionTimeout = const Duration(seconds: 4);
     try {
       final request = await client.getUrl(Uri.parse(widget.urlString));
-      request.headers.set('user-agent', 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1');
+      request.headers.set(
+        'user-agent',
+        'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+      );
       final response = await request.close();
       if (response.statusCode == 200) {
         final contentType = response.headers.contentType?.toString() ?? '';
@@ -371,8 +322,11 @@ class _UrlInfoDialogState extends State<_UrlInfoDialog> {
             bytesRead += chunk.length;
             if (bytesRead > 102400) break; // 100KB limit
           }
-          final contents = utf8.decode(bytesBuilder.toBytes(), allowMalformed: true);
-          
+          final contents = utf8.decode(
+            bytesBuilder.toBytes(),
+            allowMalformed: true,
+          );
+
           String parsedTitle = '';
           String parsedDesc = '';
 
@@ -450,7 +404,9 @@ class _UrlInfoDialogState extends State<_UrlInfoDialog> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final displayedTitle = _title.isNotEmpty ? _title : 'Website Preview';
-    final displayedDesc = _description.isNotEmpty ? _description : 'No website description available.';
+    final displayedDesc = _description.isNotEmpty
+        ? _description
+        : 'No website description available.';
 
     return AlertDialog(
       title: Row(
@@ -504,10 +460,7 @@ class _UrlInfoDialogState extends State<_UrlInfoDialog> {
                 const SizedBox(height: 12),
                 Text(
                   widget.urlString,
-                  style: const TextStyle(
-                    fontSize: 11,
-                    color: Colors.grey,
-                  ),
+                  style: const TextStyle(fontSize: 11, color: Colors.grey),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
