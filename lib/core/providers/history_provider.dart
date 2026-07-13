@@ -1,14 +1,43 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/history_item.dart';
 import 'settings_provider.dart';
 
 class HistoryProvider extends ChangeNotifier {
   final SettingsProvider _settings;
+  SharedPreferences? _preferences;
   final List<HistoryItem> _items = [];
 
-  HistoryProvider(this._settings);
+  static const _historyKey = 'history.items';
+
+  HistoryProvider(this._settings) {
+    _init();
+  }
+
+  Future<void> _init() async {
+    _preferences = await SharedPreferences.getInstance();
+    _loadHistory();
+  }
 
   List<HistoryItem> get items => List.unmodifiable(_items.reversed);
+
+  void _loadHistory() {
+    final list = _preferences?.getStringList(_historyKey);
+    if (list != null) {
+      for (final raw in list) {
+        try {
+          _items.add(HistoryItem.fromJson(jsonDecode(raw) as Map<String, dynamic>));
+        } catch (_) {}
+      }
+      notifyListeners();
+    }
+  }
+
+  void _saveHistory() {
+    final list = _items.map((item) => jsonEncode(item.toJson())).toList();
+    _preferences?.setStringList(_historyKey, list);
+  }
 
   void addHistoryItem({required String data, required String type}) {
     final lowerType = type.toLowerCase();
@@ -23,11 +52,13 @@ class HistoryProvider extends ChangeNotifier {
       scanType: type,
     );
     _items.add(newItem);
+    _saveHistory();
     notifyListeners();
   }
 
   void clearHistory() {
     _items.clear();
+    _saveHistory();
     notifyListeners();
   }
 
@@ -36,6 +67,7 @@ class HistoryProvider extends ChangeNotifier {
     if (index >= 0 && index < reversedList.length) {
       final itemToRemove = reversedList[index];
       _items.remove(itemToRemove);
+      _saveHistory();
       notifyListeners();
     }
   }
