@@ -93,9 +93,11 @@ class _QrCameraViewState extends State<QrCameraView>
   @override
   Widget build(BuildContext context) {
     final scannerProvider = context.read<ScannerProvider>();
+    final settings = context.watch<SettingsProvider>();
 
     return MobileScanner(
       controller: _controller,
+      tapToFocus: !settings.useAutoFocus || settings.touchFocus,
       onDetect: (capture) async {
         if (scannerProvider.isScanned) return;
 
