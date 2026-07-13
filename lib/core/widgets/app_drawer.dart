@@ -34,7 +34,9 @@ class AppDrawer extends StatelessWidget {
               onTap: () {
                 final scaffoldContext = Scaffold.of(context).context;
                 Navigator.pop(context);
-                scaffoldContext.read<ScannerProvider>().scanImage(scaffoldContext);
+                scaffoldContext.read<ScannerProvider>().scanImage(
+                  scaffoldContext,
+                );
               },
             ),
 
@@ -101,28 +103,9 @@ class AppDrawer extends StatelessWidget {
                 context.read<SettingsProvider>().shareApp();
               },
             ),
-
-            DrawerItem(
-              icon: Icons.apps_outlined,
-              title: AppStrings.ourAppsString,
-              onTap: () {
-                Navigator.pop(context);
-                // TODO: Open Play Store
-              },
-            ),
-
-            DrawerItem(
-              icon: Icons.block_outlined,
-              title: AppStrings.removeAdsString,
-              onTap: () {
-                Navigator.pop(context);
-                // TODO: Remove Ads
-              },
-            ),
           ],
         ),
       ),
     );
   }
 }
-
