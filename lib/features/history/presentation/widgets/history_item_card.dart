@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/models/history_item.dart';
 import '../../../../core/providers/favorite_provider.dart';
@@ -52,13 +51,13 @@ class HistoryItemCard extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: isCamera
-                          ? const Color(0xFF2563EB).withOpacity(0.15)
-                          : Colors.purple.withOpacity(0.15),
+                          ? const Color(0xFF2563EB).withValues(alpha: 0.15)
+                          : Colors.purple.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
                         color: isCamera
-                            ? const Color(0xFF2563EB).withOpacity(0.5)
-                            : Colors.purple.withOpacity(0.5),
+                            ? const Color(0xFF2563EB).withValues(alpha: 0.5)
+                            : Colors.purple.withValues(alpha: 0.5),
                         width: 1,
                       ),
                     ),

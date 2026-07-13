@@ -334,7 +334,7 @@ class _CreateQrFormPageState extends State<CreateQrFormPage> {
             ),
             const SizedBox(height: 6),
             DropdownButtonFormField<String>(
-              value: _state.wifiSecurity,
+              initialValue: _state.wifiSecurity,
               dropdownColor: const Color(0xFF1E1E1E),
               items: ["WPA", "WEP", "nopass"].map((type) {
                 return DropdownMenuItem(
@@ -530,7 +530,14 @@ class _CreateQrFormPageState extends State<CreateQrFormPage> {
                       data: provider.generatedQrData,
                       version: QrVersions.auto,
                       size: 220.0,
-                      foregroundColor: Colors.black,
+                      eyeStyle: const QrEyeStyle(
+                        eyeShape: QrEyeShape.square,
+                        color: Colors.black,
+                      ),
+                      dataModuleStyle: const QrDataModuleStyle(
+                        dataModuleShape: QrDataModuleShape.square,
+                        color: Colors.black,
+                      ),
                       gapless: false,
                     ),
                   ),
@@ -549,7 +556,7 @@ class _CreateQrFormPageState extends State<CreateQrFormPage> {
                 decoration: BoxDecoration(
                   color: const Color(0xFF1E1E1E),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.white.withOpacity(0.05)),
+                  border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

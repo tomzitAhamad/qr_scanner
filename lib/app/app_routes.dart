@@ -11,7 +11,13 @@ import '../features/my_qr/presentation/pages/my_qr_page.dart';
 
 class ExitConfirmWrapper extends StatelessWidget {
   final Widget child;
-  const ExitConfirmWrapper({super.key, required this.child});
+  final bool returnToScannerOnBack;
+
+  const ExitConfirmWrapper({
+    super.key,
+    required this.child,
+    required this.returnToScannerOnBack,
+  });
 
   Future<bool> _showExitDialog(BuildContext context) async {
     final result = await showDialog<bool>(
@@ -72,6 +78,11 @@ class ExitConfirmWrapper extends StatelessWidget {
       canPop: canPop,
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
+        if (returnToScannerOnBack) {
+          Navigator.of(context).pushReplacementNamed('/');
+          return;
+        }
+
         final shouldExit = await _showExitDialog(context);
         if (shouldExit) {
           SystemNavigator.pop();
@@ -123,7 +134,10 @@ class AppRoutes {
     }
 
     return MaterialPageRoute(
-      builder: (context) => ExitConfirmWrapper(child: widget),
+      builder: (context) => ExitConfirmWrapper(
+        returnToScannerOnBack: settings.name != '/',
+        child: widget,
+      ),
     );
   }
 }

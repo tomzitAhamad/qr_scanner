@@ -45,7 +45,14 @@ class MyQrPreviewDialog extends StatelessWidget {
                       data: myQrProvider.generatedQrCodeData ?? "",
                       version: QrVersions.auto,
                       size: 140.0,
-                      foregroundColor: Colors.black,
+                      eyeStyle: const QrEyeStyle(
+                        eyeShape: QrEyeShape.square,
+                        color: Colors.black,
+                      ),
+                      dataModuleStyle: const QrDataModuleStyle(
+                        dataModuleShape: QrDataModuleShape.square,
+                        color: Colors.black,
+                      ),
                       gapless: false,
                     ),
                   ),
