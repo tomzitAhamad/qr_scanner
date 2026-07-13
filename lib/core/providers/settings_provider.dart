@@ -17,8 +17,9 @@ class SettingsProvider extends ChangeNotifier {
   static const _urlInfoKey = 'settings.urlInfo';
   static const _useAutoFocusKey = 'settings.useAutoFocus';
   static const _touchFocusKey = 'settings.touchFocus';
-  static const _keepDuplicatesKey = 'settings.keepDuplicates';
+
   static const _customActionKey = 'settings.customAction';
+  static const _customActionUrlKey = 'settings.customActionUrl';
   static const _useInAppBrowserKey = 'settings.useInAppBrowser';
   static const _addScansToHistoryKey = 'settings.addScansToHistory';
   static const _automaticallyOpenUrlsKey = 'settings.automaticallyOpenUrls';
@@ -40,8 +41,9 @@ class SettingsProvider extends ChangeNotifier {
   bool _urlInfo = true;
   bool _useAutoFocus = true;
   bool _touchFocus = true;
-  bool _keepDuplicates = true;
+
   bool _customAction = false;
+  String _customActionUrl = "";
   bool _useInAppBrowser = true;
   bool _addScansToHistory = true;
   bool _automaticallyOpenUrls = false;
@@ -55,8 +57,9 @@ class SettingsProvider extends ChangeNotifier {
   bool get urlInfo => _urlInfo;
   bool get useAutoFocus => _useAutoFocus;
   bool get touchFocus => _touchFocus;
-  bool get keepDuplicates => _keepDuplicates;
+
   bool get customAction => _customAction;
+  String get customActionUrl => _customActionUrl;
   bool get useInAppBrowser => _useInAppBrowser;
   bool get addScansToHistory => _addScansToHistory;
   bool get automaticallyOpenUrls => _automaticallyOpenUrls;
@@ -79,8 +82,9 @@ class SettingsProvider extends ChangeNotifier {
     _urlInfo = _preferences.getBool(_urlInfoKey) ?? _urlInfo;
     _useAutoFocus = _preferences.getBool(_useAutoFocusKey) ?? _useAutoFocus;
     _touchFocus = _preferences.getBool(_touchFocusKey) ?? _touchFocus;
-    _keepDuplicates = _preferences.getBool(_keepDuplicatesKey) ?? _keepDuplicates;
+
     _customAction = _preferences.getBool(_customActionKey) ?? _customAction;
+    _customActionUrl = _preferences.getString(_customActionUrlKey) ?? _customActionUrl;
     _useInAppBrowser = _preferences.getBool(_useInAppBrowserKey) ?? _useInAppBrowser;
     _addScansToHistory = _preferences.getBool(_addScansToHistoryKey) ?? _addScansToHistory;
     _automaticallyOpenUrls =
@@ -141,15 +145,17 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setKeepDuplicates(bool value) {
-    _keepDuplicates = value;
-    _saveBool(_keepDuplicatesKey, value);
-    notifyListeners();
-  }
+
 
   void setCustomAction(bool value) {
     _customAction = value;
     _saveBool(_customActionKey, value);
+    notifyListeners();
+  }
+
+  void setCustomActionUrl(String value) {
+    _customActionUrl = value;
+    unawaited(_preferences.setString(_customActionUrlKey, value));
     notifyListeners();
   }
 

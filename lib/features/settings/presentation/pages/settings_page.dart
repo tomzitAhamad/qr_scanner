@@ -9,6 +9,63 @@ import '../widgets/setting_toggle_tile.dart';
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
+  void _showCustomUrlDialog(BuildContext context, SettingsProvider settings) {
+    final theme = Theme.of(context);
+    final controller = TextEditingController(text: settings.customActionUrl);
+    showDialog(
+      context: context,
+      builder: (BuildContext ctx) {
+        return AlertDialog(
+          title: const Text("Set Custom Action Filter"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                controller: controller,
+                decoration: const InputDecoration(
+                  hintText: "e.g., playstore, youtube, google",
+                  labelText: "Keyword or Domain name",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                "If set, the app will only process and open QR codes that match this keyword or domain name. Other scans will be ignored.",
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.textTheme.bodyMedium?.color?.withValues(alpha: 0.6),
+                  fontSize: 13,
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: const Text(AppStrings.cancelText),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onPressed: () {
+                settings.setCustomActionUrl(controller.text.trim());
+                Navigator.of(ctx).pop();
+              },
+              child: const Text(
+                AppStrings.okText,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   String _getThemeModeName(ThemeMode mode) {
     switch (mode) {
       case ThemeMode.light:
@@ -120,17 +177,34 @@ class SettingsPage extends StatelessWidget {
                 ? (val) => settings.setTouchFocus(val ?? false)
                 : null,
           ),
-          SettingToggleTile(
-            title: AppStrings.keepDuplicatesLabel,
-            value: settings.keepDuplicates,
-            onChanged: (val) => settings.setKeepDuplicates(val ?? false),
-          ),
+
           SettingToggleTile(
             title: AppStrings.customActionLabel,
             subtitle: AppStrings.customActionDesc,
             value: settings.customAction,
             onChanged: (val) => settings.setCustomAction(val ?? false),
           ),
+          if (settings.customAction) ...[
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 26),
+              title: const Text(
+                "Custom Action Filter",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              ),
+              subtitle: Text(
+                settings.customActionUrl.isEmpty
+                    ? "Tap to set filter keyword/domain (e.g. playstore, youtube)"
+                    : settings.customActionUrl,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.6),
+                ),
+              ),
+              trailing: const Icon(Icons.edit_outlined, size: 22),
+              onTap: () => _showCustomUrlDialog(context, settings),
+            ),
+            const Divider(height: 1, thickness: 1),
+          ],
           SettingToggleTile(
             title: AppStrings.inAppBrowserLabel,
             value: settings.useInAppBrowser,

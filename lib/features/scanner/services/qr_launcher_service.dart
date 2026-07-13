@@ -13,11 +13,63 @@ import 'package:qr_code_scanner/core/providers/settings_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class QrLauncherService {
+  static bool matchesCustomActionFilter(String qrData, String filter) {
+    final cleanFilter = filter.toLowerCase().trim();
+    if (cleanFilter.isEmpty) return true;
+
+    final cleanData = qrData.toLowerCase().trim();
+
+    if (cleanFilter == "youtube") {
+      return cleanData.contains("youtube.com") ||
+          cleanData.contains("youtu.be");
+    } else if (cleanFilter == "playstore" ||
+        cleanFilter == "play store" ||
+        cleanFilter == "google play") {
+      return cleanData.contains("play.google.com") ||
+          cleanData.contains("market://");
+    } else if (cleanFilter == "google") {
+      return cleanData.contains("google.com");
+    } else if (cleanFilter == "amazon") {
+      return cleanData.contains("amazon.com") || cleanData.contains("amzn.to");
+    } else if (cleanFilter == "wikipedia") {
+      return cleanData.contains("wikipedia.org");
+    } else if (cleanFilter == "maps" || cleanFilter == "google maps") {
+      return cleanData.contains("maps.google.com") ||
+          cleanData.contains("google.com/maps") ||
+          cleanData.contains("geo:");
+    } else if (cleanFilter == "facebook") {
+      return cleanData.contains("facebook.com") ||
+          cleanData.contains("fb.watch") ||
+          cleanData.contains("fb.me");
+    } else if (cleanFilter == "twitter" || cleanFilter == "x") {
+      return cleanData.contains("twitter.com") || cleanData.contains("x.com");
+    } else if (cleanFilter == "email" || cleanFilter == "mailto") {
+      return cleanData.startsWith("mailto:");
+    } else if (cleanFilter == "phone" || cleanFilter == "tel") {
+      return cleanData.startsWith("tel:");
+    } else if (cleanFilter == "sms") {
+      return cleanData.startsWith("sms:") || cleanData.startsWith("smsto:");
+    } else if (cleanFilter == "wifi") {
+      return cleanData.startsWith("wifi:");
+    } else if (cleanFilter == "vcard" || cleanFilter == "contact") {
+      return cleanData.contains("begin:vcard");
+    }
+
+    return cleanData.contains(cleanFilter);
+  }
+
   static Future<void> launchQr({
     required BuildContext context,
     required String qrData,
   }) async {
     final settings = context.read<SettingsProvider>();
+
+    if (settings.customAction && settings.customActionUrl.isNotEmpty) {
+      if (!matchesCustomActionFilter(qrData, settings.customActionUrl)) {
+        return;
+      }
+    }
+
     final isWebUrl =
         qrData.startsWith("http://") || qrData.startsWith("https://");
 
@@ -103,9 +155,9 @@ class QrLauncherService {
           }
         } catch (_) {
           if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Scanned: $qrData")),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text("Scanned: $qrData")));
           }
         }
       }
@@ -130,7 +182,10 @@ class QrLauncherService {
     }
   }
 
-  static Future<void> _showWiFiDialog(BuildContext context, String wifiData) async {
+  static Future<void> _showWiFiDialog(
+    BuildContext context,
+    String wifiData,
+  ) async {
     String ssid = "";
     String password = "";
     String security = "";
@@ -179,7 +234,10 @@ class QrLauncherService {
     );
   }
 
-  static Future<void> _showVCardDialog(BuildContext context, String vCardData) async {
+  static Future<void> _showVCardDialog(
+    BuildContext context,
+    String vCardData,
+  ) async {
     try {
       final contacts = FlutterContacts.vCard.import(vCardData);
       if (contacts.isEmpty) {
@@ -297,7 +355,10 @@ class QrLauncherService {
     }
   }
 
-  static Future<void> _showEmailDialog(BuildContext context, String emailData) async {
+  static Future<void> _showEmailDialog(
+    BuildContext context,
+    String emailData,
+  ) async {
     final emailUri = Uri.parse(emailData);
     final emailAddress = emailUri.path;
 
@@ -346,7 +407,10 @@ class QrLauncherService {
     );
   }
 
-  static Future<void> _showPlainTextDialog(BuildContext context, String text) async {
+  static Future<void> _showPlainTextDialog(
+    BuildContext context,
+    String text,
+  ) async {
     await showDialog(
       context: context,
       builder: (dialogContext) {
@@ -374,7 +438,10 @@ class QrLauncherService {
     );
   }
 
-  static Future<void> _showUrlInfoDialog(BuildContext context, String urlString) async {
+  static Future<void> _showUrlInfoDialog(
+    BuildContext context,
+    String urlString,
+  ) async {
     await showDialog(
       context: context,
       barrierDismissible: false,
@@ -499,7 +566,6 @@ class _UrlInfoDialogState extends State<_UrlInfoDialog> {
         }
       }
     } catch (_) {
-      // ignore, load with default fallback
     } finally {
       client.close();
     }

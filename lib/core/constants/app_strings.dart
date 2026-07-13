@@ -41,9 +41,9 @@ class AppStrings {
   static const String touchFocusLabel = "Touch focus";
   static const String touchFocusDesc =
       "Available only with auto focus option turned on.";
-  static const String keepDuplicatesLabel = "Keep duplicates";
+
   static const String customActionLabel = "Custom action";
-  static const String customActionDesc = "Add option to link to your own URL";
+  static const String customActionDesc = "Only launch scans matching your keyword/link";
   static const String inAppBrowserLabel = "Use in-app browser";
   static const String addHistoryLabel = "Add scans to history";
   static const String autoOpenUrlsLabel = "Automatically open URLs";

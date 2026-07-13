@@ -20,7 +20,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
         ChangeNotifierProvider(create: (_) => ScannerProvider()),
-        ChangeNotifierProvider(create: (_) => HistoryProvider()),
+        ChangeNotifierProvider(create: (_) => HistoryProvider(settingsProvider)),
         ChangeNotifierProvider(create: (_) => FavoriteProvider()),
         ChangeNotifierProvider(create: (_) => MyQrProvider()),
         ChangeNotifierProvider(create: (_) => CreateQrProvider()),

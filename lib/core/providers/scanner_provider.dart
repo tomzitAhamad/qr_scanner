@@ -109,10 +109,23 @@ class ScannerProvider extends ChangeNotifier {
       }
 
       final settings = context.read<SettingsProvider>();
+      if (settings.customAction && settings.customActionUrl.isNotEmpty) {
+        if (!QrLauncherService.matchesCustomActionFilter(
+          result,
+          settings.customActionUrl,
+        )) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("QR code does not match custom action filter"),
+            ),
+          );
+          return;
+        }
+      }
+
       context.read<HistoryProvider>().addHistoryItem(
         data: result,
         type: "Image",
-        keepDuplicates: settings.keepDuplicates,
       );
 
       if (settings.copyToClipboard) {
@@ -129,7 +142,7 @@ class ScannerProvider extends ChangeNotifier {
       if (!context.mounted) return;
       await QrLauncherService.launchQr(context: context, qrData: result);
     } finally {
-      reset(); // Resume camera scanner when done or if cancelled/failed
+      reset();
     }
   }
 }

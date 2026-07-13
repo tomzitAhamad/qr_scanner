@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import '../models/history_item.dart';
+import 'settings_provider.dart';
 
 class HistoryProvider extends ChangeNotifier {
+  final SettingsProvider _settings;
   final List<HistoryItem> _items = [];
+
+  HistoryProvider(this._settings);
 
   List<HistoryItem> get items => List.unmodifiable(_items.reversed);
 
-  void addHistoryItem({
-    required String data,
-    required String type,
-    bool keepDuplicates = true,
-  }) {
-    if (!keepDuplicates) {
-      _items.removeWhere((item) => item.data == data);
+  void addHistoryItem({required String data, required String type}) {
+    final lowerType = type.toLowerCase();
+    if ((lowerType == 'camera' || lowerType == 'image') &&
+        !_settings.addScansToHistory) {
+      return;
     }
+
     final newItem = HistoryItem(
       data: data,
       scanTime: DateTime.now(),

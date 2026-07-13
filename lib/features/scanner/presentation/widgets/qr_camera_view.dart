@@ -108,9 +108,18 @@ class _QrCameraViewState extends State<QrCameraView>
 
         if (result == null || result.isEmpty) return;
 
+        final settings = context.read<SettingsProvider>();
+        if (settings.customAction && settings.customActionUrl.isNotEmpty) {
+          if (!QrLauncherService.matchesCustomActionFilter(
+            result,
+            settings.customActionUrl,
+          )) {
+            return;
+          }
+        }
+
         if (scannerProvider.checkDuplicateAndSet(result)) return;
 
-        final settings = context.read<SettingsProvider>();
         final shouldVibrate = settings.vibrate;
         final shouldBeep = settings.beep;
         final shouldCopy = settings.copyToClipboard;
@@ -140,7 +149,6 @@ class _QrCameraViewState extends State<QrCameraView>
           context.read<HistoryProvider>().addHistoryItem(
             data: result,
             type: "Camera",
-            keepDuplicates: settings.keepDuplicates,
           );
         }
 

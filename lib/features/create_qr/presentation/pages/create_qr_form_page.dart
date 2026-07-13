@@ -46,11 +46,9 @@ class _CreateQrFormPageState extends State<CreateQrFormPage> {
     if (_clipboardHistoryAdded || provider.generatedQrData.isEmpty) return;
 
     _clipboardHistoryAdded = true;
-    final settings = context.read<SettingsProvider>();
     context.read<HistoryProvider>().addHistoryItem(
       data: provider.generatedQrData,
       type: 'Clipboard',
-      keepDuplicates: settings.keepDuplicates,
     );
   }
 
@@ -106,11 +104,9 @@ class _CreateQrFormPageState extends State<CreateQrFormPage> {
     }
 
     if (provider.generatedQrData.isNotEmpty) {
-      final settings = context.read<SettingsProvider>();
       context.read<HistoryProvider>().addHistoryItem(
         data: provider.generatedQrData,
         type: widget.title,
-        keepDuplicates: settings.keepDuplicates,
       );
     }
   }
