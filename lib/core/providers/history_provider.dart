@@ -6,7 +6,14 @@ class HistoryProvider extends ChangeNotifier {
 
   List<HistoryItem> get items => List.unmodifiable(_items.reversed);
 
-  void addHistoryItem({required String data, required String type}) {
+  void addHistoryItem({
+    required String data,
+    required String type,
+    bool keepDuplicates = true,
+  }) {
+    if (!keepDuplicates) {
+      _items.removeWhere((item) => item.data == data);
+    }
     final newItem = HistoryItem(
       data: data,
       scanTime: DateTime.now(),

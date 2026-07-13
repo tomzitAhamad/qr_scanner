@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/core/providers/create_qr_provider.dart';
 import 'package:qr_code_scanner/core/providers/history_provider.dart';
+import 'package:qr_code_scanner/core/providers/settings_provider.dart';
 import 'package:qr_code_scanner/features/create_qr/presentation/widgets/create_qr_form_fields.dart';
 import 'package:qr_code_scanner/features/create_qr/presentation/widgets/generated_qr_result.dart';
 
@@ -45,9 +46,11 @@ class _CreateQrFormPageState extends State<CreateQrFormPage> {
     if (_clipboardHistoryAdded || provider.generatedQrData.isEmpty) return;
 
     _clipboardHistoryAdded = true;
+    final settings = context.read<SettingsProvider>();
     context.read<HistoryProvider>().addHistoryItem(
       data: provider.generatedQrData,
       type: 'Clipboard',
+      keepDuplicates: settings.keepDuplicates,
     );
   }
 
@@ -103,9 +106,11 @@ class _CreateQrFormPageState extends State<CreateQrFormPage> {
     }
 
     if (provider.generatedQrData.isNotEmpty) {
+      final settings = context.read<SettingsProvider>();
       context.read<HistoryProvider>().addHistoryItem(
         data: provider.generatedQrData,
         type: widget.title,
+        keepDuplicates: settings.keepDuplicates,
       );
     }
   }

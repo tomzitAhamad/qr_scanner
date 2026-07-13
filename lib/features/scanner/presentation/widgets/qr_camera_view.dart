@@ -140,6 +140,7 @@ class _QrCameraViewState extends State<QrCameraView>
           context.read<HistoryProvider>().addHistoryItem(
             data: result,
             type: "Camera",
+            keepDuplicates: settings.keepDuplicates,
           );
         }
 

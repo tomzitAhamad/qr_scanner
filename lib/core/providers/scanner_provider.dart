@@ -108,9 +108,13 @@ class ScannerProvider extends ChangeNotifier {
         return;
       }
 
-      context.read<HistoryProvider>().addHistoryItem(data: result, type: "Image");
-
       final settings = context.read<SettingsProvider>();
+      context.read<HistoryProvider>().addHistoryItem(
+        data: result,
+        type: "Image",
+        keepDuplicates: settings.keepDuplicates,
+      );
+
       if (settings.copyToClipboard) {
         await Clipboard.setData(ClipboardData(text: result));
         if (!context.mounted) return;
